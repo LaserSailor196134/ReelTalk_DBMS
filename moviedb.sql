@@ -1,5 +1,9 @@
-CREATE DATABASE IF NOT EXISTS moviedb;
-
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_database WHERE datname = "moviedb") THEN
+        CREATE DATABASE moviedb;
+    END IF;
+END $$;
 \c moviedb
 
 CREATE TABLE IF NOT EXISTS account (
@@ -40,7 +44,7 @@ CREATE TABLE IF NOT EXISTS movie (
 
 CREATE TABLE IF NOT EXISTS TVShow (
     episodeCount int
-) INHERIIS (media);
+) INHERITS (media);
 
 CREATE TABLE IF NOT EXISTS castCrew (
     actorID INT PRIMARY KEY,
