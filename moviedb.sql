@@ -12,9 +12,10 @@ CREATE TABLE IF NOT EXISTS admin (
 
 ) INHERITS (account);
 
-CREATE TABLE IF NOT EXISTS user : account (
-    friendCount INT NOT NULL,
-    reviewCount INT NOT NULL
+CREATE TABLE IF NOT EXISTS user ( 
+    -- friendCount INT, derived attribute
+    -- reviewCount INT, derived attribute
+--postgresql allows for automatically computing values for derived attributes, maybe try that later
 ) INHERITS (account);
 
 CREATE TABLE IF NOT EXISTS bookmark (
@@ -29,7 +30,7 @@ CREATE TABLE IF NOT EXISTS media (
     mediaID INT PRIMARY KEY,
     name VARCHAR(50),
     description VARCHAR(300), -- need to check max length of a description on tmdb
-    aggregateRating FLOAT,
+    --aggregateRating FLOAT, this is derived
     MPARating VARCHAR(5)
 );
 
