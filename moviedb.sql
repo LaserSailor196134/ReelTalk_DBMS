@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS user (
 ) INHERITS (account);
 
 CREATE TABLE IF NOT EXISTS bookmark (
-    ratingID INT PRIMARY KEY,
+    ratingID SERIAL PRIMARY KEY,
     watchStatus VARCHAR(10) NOT NULL,
     numberRating INT,
     description VARCHAR(300), -- not sure of the length, should manage max length on front end as well
@@ -34,13 +34,13 @@ CREATE TABLE IF NOT EXISTS media (
     MPARating VARCHAR(5)
 );
 
-CREATE TABLE IF NOT EXISTS movie : media (
+CREATE TABLE IF NOT EXISTS movie (
     length int, -- not sure if this should be an int
-);
+) INHERITS (media);
 
-CREATE TABLE IF NOT EXISTS TVShow : media (
+CREATE TABLE IF NOT EXISTS TVShow (
     episodeCount int
-);
+) INHERIIS (media);
 
 CREATE TABLE IF NOT EXISTS castCrew (
     actorID INT PRIMARY KEY,
