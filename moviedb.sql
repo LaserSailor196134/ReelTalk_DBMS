@@ -6,11 +6,11 @@ USE moviedb;
 CREATE TABLE IF NOT EXISTS account (
     username VARCHAR(50) PRIMARY KEY, 
     password VARCHAR(50) NOT NULL, --figure out hashing
-    joinDate DATE NOT NULL
+    joinDate DATE NOT NULL -- automatically generated
 );
 
 CREATE TABLE IF NOT EXISTS admin (
-    username VARCHAR(50) PRIMARY KEY, 
+    username VARCHAR(50), 
     FOREIGN KEY (username) REFERENCES account(username)
 );
 
