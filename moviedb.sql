@@ -5,8 +5,8 @@ USE moviedb;
 
 CREATE TABLE IF NOT EXISTS account (
     username VARCHAR(50) PRIMARY KEY, 
-    password VARCHAR(50) NOT NULL, --figure out hashing
-    joinDate DATE NOT NULL -- automatically generated
+    password VARCHAR(255) NOT NULL, --figure out hashing
+    joinDate DATE NOT NULL DEFAULT CURRENT_DATE -- automatically generated
 );
 
 CREATE TABLE IF NOT EXISTS admin (
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS bookmark (
     watchStatus VARCHAR(10) NOT NULL,
     numberRating INT,
     description VARCHAR(300), -- not sure of the length, should manage max length on front end as well
-    dateCreated DATE NOT NULL
+    dateCreated DATE NOT NULL DEFAULT CURRENT_DATE
 );
 
 CREATE TABLE IF NOT EXISTS media (
@@ -39,13 +39,13 @@ CREATE TABLE IF NOT EXISTS media (
 
 CREATE TABLE IF NOT EXISTS movie (
     mediaID INT PRIMARY KEY,
-    length int, -- not sure if this should be an int
+    length INT, -- not sure if this should be an int
     FOREIGN KEY (mediaID) REFERENCES media(mediaID)
 );
 
 CREATE TABLE IF NOT EXISTS TVShow (
     mediaID INT PRIMARY KEY,
-    episodeCount int,
+    episodeCount INT,
     FOREIGN KEY (mediaID) REFERENCES media(mediaID)
 );
 
