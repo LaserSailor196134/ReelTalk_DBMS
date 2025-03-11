@@ -10,26 +10,12 @@
         <a href="">fourth part of header</a><br>
     </header>
     <br><br>
-    <script>
-        function validateForm() {
-            var uname = document.forms["form"]["uname"].value;
-            var password = document.forms["form"]["password"].value;
-            if (uname == "") {
-                alert("username must be filled out");
-                return false;
-            }
-            if(password == "") {
-                alert("password must be filled out");
-                return false;
-            }
-        }
-    </script>
     <body>
         <form action="login.php" onsubmit="return validateForm()">
             <label for="uname">username:</label>
-            <input type="text" id="uname" name="uname"><br>
+            <input type="text" id="uname" name="uname" required><br>
             <label for="password">password:</label>
-            <input type="password" id="password" name="password"><br>
+            <input type="password" id="password" name="password" required><br>
             <input type="submit" value="Submit">
         </form>
         <a href="register.html"> don't have an account? </a>

@@ -10,14 +10,25 @@
         <a href="">fourth part of header</a><br>
     </header>
     <br><br>
+    <script>
+        function validateForm() {
+            var password = document.forms["register"]["password"].value;
+            var repassword = document.forms["register"]["repassword"].value;
+            if(password != repassword) {
+                alert("passwords do not match");
+                return false;
+            }
+            return true;
+        }
+    </script>
     <body>
         <form action="register.php">
             <label for="uname">username:</label>
-            <input type="text" id="uname" name="uname"><br>
+            <input type="text" id="uname" name="uname" required><br>
             <label for="password">password:</label>
-            <input type="password" id="password" name="password"><br>
+            <input type="password" id="password" name="password" required><br>
             <label for="repassword"> re-enter pasword:</label>
-            <input type="password" id="repassword" name="repassword"><br>
+            <input type="password" id="repassword" name="repassword" required><br>
             <input type="submit" value="Submit">
         </form>
         <a href="login.html"> already have an account? </a>
