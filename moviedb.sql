@@ -1,12 +1,11 @@
-
-CREATE DATABASE moviedb IF NOT EXISTS;
+CREATE DATABASE IF NOT EXISTS moviedb;
 
 USE moviedb;
 
 CREATE TABLE IF NOT EXISTS account (
     username VARCHAR(50) PRIMARY KEY, 
-    password VARCHAR(255) NOT NULL, --figure out hashing
-    joinDate DATE NOT NULL DEFAULT CURRENT_DATE -- automatically generated
+    password VARCHAR(255) NOT NULL, -- figure out hashing
+    joinDate DATETIME DEFAULT NOW() -- automatically generated
 );
 
 CREATE TABLE IF NOT EXISTS admin (
@@ -14,11 +13,11 @@ CREATE TABLE IF NOT EXISTS admin (
     FOREIGN KEY (username) REFERENCES account(username)
 );
 
-CREATE TABLE IF NOT EXISTS user (
+CREATE TABLE IF NOT EXISTS dbuser (
     username VARCHAR(50) PRIMARY KEY, 
     -- friendCount INT, derived attribute
     -- reviewCount INT, derived attribute
---postgresql allows for automatically computing values for derived attributes, maybe try that later
+-- postgresql allows for automatically computing values for derived attributes, maybe try that later
     FOREIGN KEY (username) REFERENCES account(username)
 );
 
@@ -27,7 +26,7 @@ CREATE TABLE IF NOT EXISTS bookmark (
     watchStatus VARCHAR(10) NOT NULL,
     numberRating INT,
     description VARCHAR(300), -- not sure of the length, should manage max length on front end as well
-    dateCreated DATE NOT NULL DEFAULT CURRENT_DATE
+    dateCreated DATETIME DEFAULT NOW()
 );
 
 CREATE TABLE IF NOT EXISTS media (
@@ -66,13 +65,13 @@ CREATE TABLE IF NOT EXISTS CONTRIBUTED (
 
 CREATE TABLE IF NOT EXISTS CREATES (
     username VARCHAR(50),
-    ratingID INT,
-    FOREIGN KEY (username) REFERENCES user(username),
+    ratingID SERIAL,
+    FOREIGN KEY (username) REFERENCES dbuser(username),
     FOREIGN KEY (ratingID) REFERENCES bookmark(ratingID)
 );
 
 CREATE TABLE IF NOT EXISTS ABOUT (
-    ratingID INT,
+    ratingID SERIAL,
     mediaID INT,
     FOREIGN KEY (ratingID) REFERENCES bookmark(ratingID),
     FOREIGN KEY (mediaID) REFERENCES media(mediaID)
@@ -81,6 +80,6 @@ CREATE TABLE IF NOT EXISTS ABOUT (
 CREATE TABLE IF NOT EXISTS FRIENDS_WITH (
     username1 VARCHAR(50),
     username2 VARCHAR(50), 
-    FOREIGN KEY (username1) REFERENCES user(username),
-    FOREIGN KEY (username2) REFERENCES user(username)
-)
+    FOREIGN KEY (username1) REFERENCES dbuser(username),
+    FOREIGN KEY (username2) REFERENCES dbuser(username)
+);
