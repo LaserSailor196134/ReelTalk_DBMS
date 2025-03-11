@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <meta charset="UTF-8">
-    <title>Reeltalk | Login</title>
+    <title>Reeltalk | Registration</title>
     <!--need a css file and bootstrap or smt-->
     <header>
         <a href="">first part of header</a><br>
@@ -10,28 +10,16 @@
         <a href="">fourth part of header</a><br>
     </header>
     <br><br>
-    <script>
-        function validateForm() {
-            var uname = document.forms["form"]["uname"].value;
-            var password = document.forms["form"]["password"].value;
-            if (uname == "") {
-                alert("username must be filled out");
-                return false;
-            }
-            if(password == "") {
-                alert("password must be filled out");
-                return false;
-            }
-        }
-    </script>
     <body>
-        <form action="login.php" onsubmit="return validateForm()">
+        <form action="register.php">
             <label for="uname">username:</label>
             <input type="text" id="uname" name="uname"><br>
             <label for="password">password:</label>
             <input type="password" id="password" name="password"><br>
+            <label for="repassword"> re-enter pasword:</label>
+            <input type="password" id="repassword" name="repassword"><br>
             <input type="submit" value="Submit">
         </form>
-        <a href="register.html"> don't have an account? </a>
+        <a href="login.html"> already have an account? </a>
     </body>
 </html>
