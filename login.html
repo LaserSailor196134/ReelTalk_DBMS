@@ -11,13 +11,15 @@
     </header>
     <br><br>
     <body>
-        <form action="login.php" onsubmit="return validateForm()">
+        <h2>login</h2>
+        <form name="login" action="login.php" onsubmit="return validateForm()">
             <label for="uname">username:</label>
             <input type="text" id="uname" name="uname" required><br>
             <label for="password">password:</label>
             <input type="password" id="password" name="password" required><br>
             <input type="submit" value="Submit">
         </form>
-        <a href="register.html"> don't have an account? </a>
+        <a href="register.html"> don't have an account? </a><br>
+        <a href="delete.html"> delete your account here</a>
     </body>
 </html>
