@@ -9,7 +9,5 @@ $movies = new mysqli(HOST, USER, PASSWORD, DATABASE);
 //idiom
 if ($movies === false) {
     die("ERROR: Could not connect. " . $movies->connect_error);
-} else {
-    echo "Connected successfully";
 }
 ?>
