@@ -13,10 +13,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             alert("Account does not exist");
             window.location.href = "delete.html";
             </script>');
+        close($checkusername);
+        close($movies);
+        die();
         
     }
     $checkusername -> bind_result($storedpassword);
+    echo("this runs");
     $checkusername -> fetch();
+    echo("this also runs");
     if($storedpassword == hash("sha256", $password)) {
         $deleteuser = $movies -> prepare("DELETE FROM dbuser WHERE username = ?");
         $deleteuser -> bind_param("s", $username);
