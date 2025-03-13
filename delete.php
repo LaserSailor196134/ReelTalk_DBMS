@@ -21,8 +21,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $checkusername -> bind_result($storedpassword);
     echo("this runs");
     $checkusername -> fetch();
-    echo("this also runs");
     if($storedpassword == hash("sha256", $password)) {
+        echo("hit the if statement");
         $deleteuser = $movies -> prepare("DELETE FROM dbuser WHERE username = ?");
         $deleteuser -> bind_param("s", $username);
         $deleteuser -> execute();
@@ -39,6 +39,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         close($movies);
         die();
     } else {
+        echo("incorrect password (this is what I am expecting");
         echo('<script>
             alert("Incorrect password");
             window.location.href = "delete.html";');
