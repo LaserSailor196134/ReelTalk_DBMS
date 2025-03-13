@@ -12,7 +12,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $deleteuser = $movies -> prepare("DELETE FROM dbuser WHERE username = ?");
         $deleteuser -> bind_param("s", $username);
         $deleteuser -> execute();
-        $deleteaccount -> $movies -> prepare("DELETE FROM account WHERE username = ?");
+        $deleteaccount = $movies -> prepare("DELETE FROM account WHERE username = ?");
         $deleteaccount -> bind_param("s", $username);
         $deleteaccount -> execute();
         header("Location: login.html");
