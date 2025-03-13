@@ -20,7 +20,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     $checkusername -> bind_result($storedpassword);
     $checkusername -> fetch();
-    if($storedpassword == password_hash($password, PASSWORD_BCRYPT)) {
+    if(password_verify($storedpassword, $password)) {
         $deleteuser = $movies -> prepare("DELETE FROM dbuser WHERE username = ?");
         $deleteuser -> bind_param("s", $username);
         $deleteuser -> execute();
