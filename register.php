@@ -11,7 +11,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $checkusername -> execute();
     $checkusername -> store_result();
     if($checkusername -> num_rows > 0) {//if the username already exists
-        echo "Username already exists";
+        header("Location: register.html");
+        echo("<script>alert(\"username already exists\")</script>");
     } else {
         //register account first
         $registeraccount = $movies -> prepare ('INSERT INTO account (username, password) VALUES (?, ?)');
