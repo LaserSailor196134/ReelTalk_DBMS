@@ -15,7 +15,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             </script>');
         
     }
-    if($checkusername -> fetch_row()[0] == hash("sha256", $password)) {
+    $storedpassword = $checkusername -> fetch_result();
+    if($storedpassword == hash("sha256", $password)) {
         $deleteuser = $movies -> prepare("DELETE FROM dbuser WHERE username = ?");
         $deleteuser -> bind_param("s", $username);
         $deleteuser -> execute();
