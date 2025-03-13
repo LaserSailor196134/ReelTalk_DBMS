@@ -11,7 +11,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     if($checkusername -> num_rows > 0) {//if the username already exists
         echo "Username already exists";
     } else {
-        $register = $movies -> prepare ('INSERT INTO dbuser (username) VALUES ?');
+        $register = $movies -> prepare ('INSERT INTO dbuser (username) VALUES (?)');
         $register -> bind_param('s', $username);
         $register -> execute();
         $registeraccount = $movies -> prepare ('INSERT INTO account (username, password) VALUES (?, ?)');
