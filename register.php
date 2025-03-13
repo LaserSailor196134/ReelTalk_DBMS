@@ -15,13 +15,16 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         //register account first
         $registeraccount = $movies -> prepare ('INSERT INTO account (username, password) VALUES (?, ?)');
-        $registeraccount -> bind_param('ss', $username, $password);
+        $registeraccount -> bind_param('ss', $username, hash('sha256', $password));
         $registeraccount -> execute();
         //then register user afterwards, as it contains a foreign key
         $registeruser = $movies -> prepare ('INSERT INTO dbuser (username) VALUES (?)');
         $registeruser -> bind_param('s', $username);
         $registeruser -> execute();
         header('Location: login.html');
+        close($registeraccount);
+        close($registeruser);
+        close($movies);
         die();
     }
 }
