@@ -2,8 +2,10 @@
 include "config.php";
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //getting username and password from the form
     $username = $_POST['uname'];
     $password = $_POST['password'];
+    //checking if the username already exists
     $checkusername = $movies -> prepare('SELECT * FROM dbuser WHERE username = ?');
     $checkusername -> bind_param('s', $username);
     $checkusername -> execute();
