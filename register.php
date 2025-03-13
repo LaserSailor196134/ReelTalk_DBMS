@@ -2,7 +2,7 @@
 include "config.php";
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
+    $username = $_POST['uname'];
     $password = $_POST['password'];
     $checkusername = $movies -> prepare('SELECT * FROM users WHERE username = ?');
     $checkusername -> bind_param('s', $username);
