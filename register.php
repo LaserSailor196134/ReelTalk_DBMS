@@ -10,9 +10,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $checkusername -> bind_param('s', $username);
     $checkusername -> execute();
     $checkusername -> store_result();
-    if($checkusername -> num_rows > 0) {//if the username already exists
-        header("Location: register.html");
-        echo("<script>alert(\"username already exists\")</script>");
+    if($checkusername -> num_rows > 0) {//if the username already exists  
+
+        echo('<script>
+            alert("username already exists");
+            window.location.href = "register.html";
+        </script>');
+        die();
     } else {
         //register account first
         $registeraccount = $movies -> prepare ('INSERT INTO account (username, password) VALUES (?, ?)');
