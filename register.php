@@ -14,6 +14,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $register = $movies -> prepare ('INSERT INTO users (username, password) VALUES (?, ?)');
         $register -> bind_params('ss', $username, $password);
         $register -> execute();
+        header('Location: login.html');
     }
 }
 ?>
