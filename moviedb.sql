@@ -4,7 +4,7 @@ USE moviedb;
 
 CREATE TABLE IF NOT EXISTS account (
     username VARCHAR(50) PRIMARY KEY, 
-    password VARCHAR(64) NOT NULL, -- sha256 hash
+    password VARCHAR(72) NOT NULL, -- bcrypt hash
     joinDate DATETIME DEFAULT NOW() -- automatically generated
 );
 

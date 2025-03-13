@@ -21,7 +21,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         //register account first
         $registeraccount = $movies -> prepare ('INSERT INTO account (username, password) VALUES (?, ?)');
-        $registeraccount -> bind_param('ss', $username, hash('sha256', $password));
+        $registeraccount -> bind_param('ss', $username, password_hash($password, PASSWORD_BCRYPT));
         $registeraccount -> execute();
         //then register user afterwards, as it contains a foreign key
         $registeruser = $movies -> prepare ('INSERT INTO dbuser (username) VALUES (?)');
