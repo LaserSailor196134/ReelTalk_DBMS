@@ -8,7 +8,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $checkusername -> bind_param("s", $username);
     $checkusername -> execute();
     $checkusername -> store_result();
-    if($checkusername -> fetch() == password) {
+    if($checkusername -> fetch() == hash("sha256", password)) {
         $deleteuser = $movies -> prepare("DELETE FROM dbuser WHERE username = ?");
         $deleteuser -> bind_param("s", $username);
         $deleteuser -> execute();
