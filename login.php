@@ -1,8 +1,8 @@
 <?php
 include "config.php";
 
-$username = $POST["uname"];
-$password = $POST["password"];
+$username = $_POST["uname"];
+$password = $_POST["password"];
 $checkusername = $movies -> prepare("SELECT password FROM account WHERE username = ?");
 $checkusername -> bind_param("s", $username);
 $checkusername -> execute();
