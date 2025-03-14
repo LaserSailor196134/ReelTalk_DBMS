@@ -11,13 +11,15 @@
     </header>
     <br><br>
     <?php
-    echo("what the fuck");
-    if(session_status() == PHP_SESSION_ACTIVE) {
-        echo('welcome' . $_SESSION["username"]);
+    include "checkloggedin.php";
+    if(isLoggedIn()) {
+        echo('welcome, ' . $_SESSION["username"] . "<br>");
+        echo('<a href="logout.php">logout</a>');
     } else {
         echo('<script>
         alert("please login first");
-        window.location.assign("login.html");');    
+        window.location.assign("login.html");
+        </script>');    
     }
     ?>
 </html>

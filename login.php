@@ -29,7 +29,7 @@ if(password_verify($password, $storedpassword)) {
         close($checkusername);
         close($movies);
         die();
-    }
+    } 
     $_SESSION["username"] = $username;
     echo('<script>
         alert("logged in successfully");
