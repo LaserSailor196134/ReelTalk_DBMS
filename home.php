@@ -11,12 +11,13 @@
     </header>
     <br><br>
     <?php
+    echo("what the fuck")
     if(session_status() == PHP_SESSION_ACTIVE) {
         echo('welcome' . $_SESSION["username"]);
     } else {
         echo('<script>
         alert("please login first");
-        window.location.assign("login.html");');
+        window.location.assign("login.html");');    
     }
     ?>
 </html>
