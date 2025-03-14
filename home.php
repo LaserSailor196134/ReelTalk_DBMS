@@ -11,7 +11,7 @@
     </header>
     <br><br>
     <?php
-    echo("what the fuck")
+    echo("what the fuck");
     if(session_status() == PHP_SESSION_ACTIVE) {
         echo('welcome' . $_SESSION["username"]);
     } else {
