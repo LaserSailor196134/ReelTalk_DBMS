@@ -33,11 +33,12 @@ if(password_verify($password, $storedpassword)) {
     $_SESSION["username"] = $username;
     echo('<script>
         alert("logged in successfully");
-        window.location.href = "home.html";
+        window.location.href = "home.php";
         </script>');
     close($checkusername);
     close($movies);
     die();
+//username found but wrong password
 } else {
     echo('<script>
         alert("Incorrect password");
