@@ -7,3 +7,4 @@ function isLoggedIn() {
         return false;
     }
 }
+?>
