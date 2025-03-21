@@ -1,5 +1,5 @@
 <?php
-include "config.php";
+include "../config.php";
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
     //getting username and password from the form

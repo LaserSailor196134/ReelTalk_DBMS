@@ -12,35 +12,47 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://kit.fontawesome.com/63ff890171.js" crossorigin="anonymous"></script>
-        <!-- TODO: Add a CSS style sheet that specifies random website specifics -->
     </head>
     <body class="bg-secondary" style="font-family: Tahoma"> <!-- Can change the font if wee need to -->
-    <div class="container-fluid">
+    <div id="top" class="container-fluid">
         <?php
-        include 'utilitiesh.php';
+        include 'utilities/headfoot.php';
         makeHeader();
         ?>
     </div>
     <div class="container-fluid">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center py-4">
+            <div class="bg-dark rounded text-center col-6 m-4 py-3">
+                <h1 class="text-light fs-1 pt-3">Welcome to ReelTalk!<br></h1>
+                <h2 class="text-warning fs-5">It's like goodreads&reg; for movies<br></h2>
+                <p class="text-light">ReelTalk is an interactive database that allows you to search through all your
+                favourite movies and stars. While searching, you can add films to your watchlist and post reviews with our
+                bookmark features. If that isn't enough, you can take a look at other user reviews and send friend requests.
+                <br>Get to know our database using the navigational tools below.</p>
+            </div>
         </div>
         <div class="row justify-content-center py-4">
             <div class="bg-dark rounded text-center col-3 mx-4 py-3">
-                <button class="fs-5 btn btn-warning p-3"><i class="fa-solid fa-film"></i> Movies</button>
+                <a href="movies.php" class="fs-5 btn btn-warning p-3"><i class="fa-solid fa-film"></i> Movies</a>
                 <p class="text-light p-3">Find all your favorite movies, see who worked on them, and read user reviews here!
                 </p>
             </div>
             <div class="bg-dark rounded text-center col-3 mx-4 py-3">
-                <button class="fs-5 btn btn-warning p-3"><i class="fa-solid fa-star"></i> Stars</button>
+                <a href="stars.php" class="fs-5 btn btn-warning p-3"><i class="fa-solid fa-star"></i> Stars</a>
                 <p class="text-light p-3">Search our catalogue of the actors, directors, and more to see what they've made!
                 </p>
             </div>
             <div class="bg-dark rounded text-center col-3 mx-4 py-3">
-                <button class="fs-5 btn btn-warning p-3"><i class="fa-solid fa-users"></i> Users</button>
-                <p class="text-light p-3">Encounter new users, view their recent watchlist, and make friends!
+                <a href="users.php" class="fs-5 btn btn-warning p-3"><i class="fa-solid fa-users"></i> Users</a>
+                <p class="text-light p-3">Encounter new users, view their recent bookmarks, and make friends!
                 </p>
             </div>
         </div>
+    </div>
+    <div class="container-fluid pt-5">
+        <?php
+        makeFooter();
+        ?>
     </div>
     </body>
 </html>

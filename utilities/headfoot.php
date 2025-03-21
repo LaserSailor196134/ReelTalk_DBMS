@@ -17,8 +17,8 @@ function makeAccBtn() {
             </button>
             <div class="dropdown-menu" aria-labelledby="accDrop">
                 <a class="dropdown-item" href="">My Profile</a>
-                <a class="dropdown-item" href="logout.php">Logout</a>
-                <a class="dropdown-item text-danger" href="delete.html">Delete Account</a>
+                <a class="dropdown-item" href="accounts/logout.php">Logout</a>
+                <a class="dropdown-item text-danger" href="accounts/delete.html">Delete Account</a>
             </div>
         </div>
         ';
@@ -30,8 +30,8 @@ function makeAccBtn() {
                 <i class="fa-solid fa-user"></i> Account
             </button>
             <div class="dropdown-menu" aria-labelledby="accDrop">
-                <a class="dropdown-item" href="login.html">Login</a>
-                <a class="dropdown-item" href="register.html">Register</a>
+                <a class="dropdown-item" href="accounts/login.html">Login</a>
+                <a class="dropdown-item" href="accounts/register.html">Register</a>
             </div>
         </div>
         ';
@@ -47,7 +47,7 @@ function makeHeader($search_bar = '<br>') {
         <div class="bg-warning rounded text-center col-2 p-2">
             <a href="home.php" class="link-body-emphasis link-underline-opacity-0 fs-4">ReelTalk</a> <!-- Insert logo here -->
         </div>
-        <div class="col-3 mx-auto"
+        <div class="col-4 mx-auto">
     ';
 
     echo $search_bar; // Places the user-inputted search bar. Make sure to add your php-relevant variables here.
@@ -61,5 +61,29 @@ function makeHeader($search_bar = '<br>') {
         </div>
     </header>
     ';
+}
+
+// Function used to construct footers on our frontend.
+// BUG: Supposed to tell user who they're signed in as, got error <<Ignoring session_start() because a session is already active>>
+function makeFooter() {
+    //include_once 'checkloggedin.php';
+    
+    echo '
+    <footer class="row text-center bg-dark py-3">
+        <p class="text-light">
+    ';
+    
+    /*
+    if(isLoggedIn()) {
+        echo 'Signed in as ' . $_SESSION["username"] . 'br';
+    }
+    */
+    
+    echo '
+        ReelTalk &copy; Acadia University 2025<br>
+        All rights to films presented belong to their respective owners.<br><br>
+        <a class="btn btn-warning" href="#top">Back to Top</a></p>
+    </footer>
+    '; // We might have to remove the top button later depending how we implement searches.
 }
 ?>

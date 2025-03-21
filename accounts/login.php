@@ -1,5 +1,5 @@
 <?php
-include "config.php";
+include "../config.php";
 
 $username = $_POST["uname"];
 $password = $_POST["password"];
@@ -33,7 +33,7 @@ if(password_verify($password, $storedpassword)) {
     $_SESSION["username"] = $username;
     echo('<script>
         alert("logged in successfully");
-        window.location.href = "home.php";
+        window.location.href = "../home.php";
         </script>');
     close($checkusername);
     close($movies);
