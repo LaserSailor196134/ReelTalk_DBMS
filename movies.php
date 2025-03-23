@@ -14,9 +14,9 @@
     <body class="bg-secondary" style="font-family: Tahoma">
     <div id="top" class="container-fluid">
         <?php
-        include 'utilities/headfoot.php';
+        include 'headfoot.php';
         $my_bar = '
-            <input type="text" class="form-control" placeholder="Search cast/crew...">
+            <input type="text" class="form-control" placeholder="Search movies...">
         ';
         makeHeader($my_bar);
         ?>

@@ -6,19 +6,19 @@
 <?php
 // This function echos the HTML/Bootstrap necessary to produce the account button.
 // The functionality of this button is dependent on whether the user is logged_in.
-function makeAccBtn() {
-    include_once "checkloggedin.php";
+function makeAccBtn($root_rel = './') {
+    include_once "accounts/checkloggedin.php";
     if(isLoggedIn()) {
         echo '
         <div class="dropdown">
             <button class="btn btn-warning dropdown-toggle" type="button" id="accDrop" data-bs-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-                <i class="fa-solid fa-user"></i> Account
+                <i class="fa-solid fa-user"></i> ' . ($_SESSION["username"]) . '
             </button>
             <div class="dropdown-menu" aria-labelledby="accDrop">
-                <a class="dropdown-item" href="">My Profile</a>
-                <a class="dropdown-item" href="accounts/logout.php">Logout</a>
-                <a class="dropdown-item text-danger" href="accounts/delete.html">Delete Account</a>
+                <a class="dropdown-item" href="' . $root_rel . 'accounts/profile.php">My Profile</a>
+                <a class="dropdown-item" href="' . $root_rel . 'accounts/logout.php">Logout</a>
+                <a class="dropdown-item text-danger" href="' . $root_rel . 'accounts/delete.php">Delete Account</a>
             </div>
         </div>
         ';
@@ -30,8 +30,8 @@ function makeAccBtn() {
                 <i class="fa-solid fa-user"></i> Account
             </button>
             <div class="dropdown-menu" aria-labelledby="accDrop">
-                <a class="dropdown-item" href="accounts/login.html">Login</a>
-                <a class="dropdown-item" href="accounts/register.html">Register</a>
+                <a class="dropdown-item" href="' . $root_rel . 'accounts/login.php">Login</a>
+                <a class="dropdown-item" href="' . $root_rel . 'accounts/register.php">Register</a>
             </div>
         </div>
         ';
@@ -41,11 +41,11 @@ function makeAccBtn() {
 // This function makes an entire header, with the logo, account button, and an optional search bar between them.
 // <br> is provided as a default parameter as it adds nothing but preserves proportions.
 // Calls makeAccBtn(), which includes checkloggedin.php.
-function makeHeader($search_bar = '<br>') {
+function makeHeader($search_bar = '<br>', $root_rel = './') {
     echo '
     <header class="row bg-dark py-1 px-3 justify-content-center align-items-center">
         <div class="bg-warning rounded text-center col-2 p-2">
-            <a href="home.php" class="link-body-emphasis link-underline-opacity-0 fs-4">ReelTalk</a> <!-- Insert logo here -->
+            <a href="' . $root_rel . 'home.php" class="link-body-emphasis link-underline-opacity-0 fs-4">ReelTalk</a> <!-- Insert logo here -->
         </div>
         <div class="col-4 mx-auto">
     ';
@@ -56,7 +56,7 @@ function makeHeader($search_bar = '<br>') {
         <div class="text-end col-2 p-3">
     ';
 
-    makeAccBtn();
+    makeAccBtn($root_rel);
     echo '
         </div>
     </header>
