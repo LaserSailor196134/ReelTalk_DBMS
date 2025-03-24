@@ -29,7 +29,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $deleteaccount -> execute();
         echo('<script>
             alert("Account deleted");
-            window.location.href = "login.html";
+            window.location.href = "loginPage.php";
             </script>');
         close($checkusername);
         close($deleteuser);

@@ -1,3 +1,9 @@
+<?php 
+session_start();
+if(isset($_SESSION['username'])) {
+    header("Location: home.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <meta charset="UTF-8">
@@ -37,6 +43,6 @@
             <input type="password" id="repassword" name="repassword" required><br>
             <input type="submit" value="Submit">
         </form>
-        <a href="login.html"> already have an account? </a>
+        <a href="loginPage.php"> already have an account? </a>
     </body>
 </html>

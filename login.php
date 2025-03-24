@@ -11,7 +11,7 @@ $checkusername -> store_result();
 if($checkusername -> num_rows == 0) {
     echo('<script>
         alert("Account does not exist");
-        window.location.href = "login.html";
+        window.location.href = "loginPage.php";
         </script>');
     close($checkusername);
     close($movies);
@@ -24,7 +24,7 @@ if(password_verify($password, $storedpassword)) {
     if(!session_start()) {
         echo('<script>
             alert("Session failed to start");
-            window.location.href = "login.html";
+            window.location.href = "loginPage.php";
             </script>');
         close($checkusername);
         close($movies);
@@ -42,7 +42,7 @@ if(password_verify($password, $storedpassword)) {
 } else {
     echo('<script>
         alert("Incorrect password");
-        window.location.assign("login.html");
+        window.location.assign("loginPage.php");
         </script>');
     close($checkusername);
     close($movies);

@@ -18,7 +18,7 @@
     } else {
         echo('<script>
         alert("please login first");
-        window.location.assign("login.html");
+        window.location.assign("loginPage.php");
         </script>');    
     }
     ?>

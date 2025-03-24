@@ -13,7 +13,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     if($checkusername -> num_rows > 0) {//if the username already exists
         echo('<script>
             alert("username already exists");
-            window.location.href = "register.html";
+            window.location.href = "registerPage.php";
         </script>');
         close($checkusername);
         close($movies);
@@ -27,7 +27,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $registeruser = $movies -> prepare ('INSERT INTO dbuser (username) VALUES (?)');
         $registeruser -> bind_param('s', $username);
         $registeruser -> execute();
-        header('Location: login.html');
+        header('Location: loginPage.php');
         close($checkusername);
         close($registeraccount);
         close($registeruser);

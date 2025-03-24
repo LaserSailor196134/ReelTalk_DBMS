@@ -1,3 +1,9 @@
+<?php 
+session_start();
+if(isset($_SESSION['username'])) {
+    header("Location: home.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <meta charset="UTF-8">
@@ -29,7 +35,7 @@
             <input type="password" id="password" name="password" required><br>
             <input type="submit" value="Submit">
         </form>
-        <a href="register.html"> don't have an account? </a><br>
+        <a href="registerPage.php"> don't have an account? </a><br>
         <a href="delete.html"> delete your account here</a>
     </body>
 </html>
