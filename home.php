@@ -19,7 +19,7 @@
         include 'headfoot.php';
         makeHeader();
         ?>
-        <div class="container-fluid">
+        <div class="container-fluid" style="min-height: 75vh">
             <div class="row justify-content-center py-4">
                 <div class="bg-dark rounded text-center col-6 m-4 py-3">
                     <h1 class="text-light fs-1 pt-3">Welcome to ReelTalk!<br></h1>
