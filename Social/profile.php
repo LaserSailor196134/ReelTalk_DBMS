@@ -4,20 +4,28 @@ if(isLoggedIn()) { //if user is logged in
     include "../headfoot.php";
     include "../config.php";
     makeHeader('<br>', '../');
-    
+    //load user's user info
+    $loadProfile = $movies -> prepare('SELECT username, joinDate FROM account WHERE username = ?');
+    $loadProfile -> bind_param('s', $_SESSION['username']);
+    $loadProfile -> execute();
+    $loadProfile -> bind_result($username, $joinDate);
+    $loadProfile -> fetch();
+    echo("<h2>$username's profile</h2>
+    <h3>Joined on $joinDate</h3>");
+    $loadProfile -> close();
     //this loads all of the users's bookmarks
-    $loadProfile = $movies -> prepare('SELECT bookmark.watchStatus, bookmark.numberRating, bookmark.description, bookmark.dateCreated, media.name FROM CREATES
+    $loadBookmarks = $movies -> prepare('SELECT bookmark.watchStatus, bookmark.numberRating, bookmark.description, bookmark.dateCreated, media.name FROM CREATES
     JOIN bookmark ON CREATES.ratingID = bookmark.ratingID
     JOIN ABOUT ON bookmark.ratingID = ABOUT.ratingID
     JOIN media ON ABOUT.mediaID = media.mediaID
     WHERE CREATES.username = ?'); //get information for every bookmark related to a specified username
-    $loadProfile -> bind_param('s', $_SESSION['username']);
-    $loadProfile -> execute();
-    $loadProfile -> store_result();
-        if($loadProfile -> num_rows > 0) {
+    $loadBookmarks -> bind_param('s', $_SESSION['username']);
+    $loadBookmarks -> execute();
+    $loadBookmarks -> store_result();
+        if($loadBookmarks -> num_rows > 0) {
             echo("<h2>Bookmarks</h2>");
-            $loadProfile -> bind_result($watchStatus, $numberRating, $description, $dateCreated, $movie);
-            while($loadProfile -> fetch()) {
+            $loadBookmarks -> bind_result($watchStatus, $numberRating, $description, $dateCreated, $movie);
+            while($loadBookmarks -> fetch()) {
                 echo ("<p>watch status: $watchStatus </p>
                 <p> movie Name $movie </p>
                 <p> rating: $numberRating </p>
