@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS dbuser (
 );
 
 CREATE TABLE IF NOT EXISTS bookmark (
-    ratingID SERIAL PRIMARY KEY,
+    ratingID INT AUTO_INCREMENT PRIMARY KEY,
     watchStatus VARCHAR(10) NOT NULL,
     numberRating INT,
     description VARCHAR(300), -- not sure of the length, should manage max length on front end as well
@@ -65,13 +65,13 @@ CREATE TABLE IF NOT EXISTS CONTRIBUTED (
 
 CREATE TABLE IF NOT EXISTS CREATES (
     username VARCHAR(50),
-    ratingID SERIAL,
+    ratingID INT AUTO_INCREMENT,
     FOREIGN KEY (username) REFERENCES dbuser(username),
     FOREIGN KEY (ratingID) REFERENCES bookmark(ratingID)
 );
 
 CREATE TABLE IF NOT EXISTS ABOUT (
-    ratingID SERIAL,
+    ratingID INT AUTO_INCREMENT,
     mediaID INT,
     FOREIGN KEY (ratingID) REFERENCES bookmark(ratingID),
     FOREIGN KEY (mediaID) REFERENCES media(mediaID)
