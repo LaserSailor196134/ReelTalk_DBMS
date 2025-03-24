@@ -8,7 +8,7 @@
     $findUsers -> execute();
     $findUsers -> bind_result($username,$joinDate);
     while($findUsers -> fetch()){ //while get next result returns values
-        echo("$username  $joinDate");
+        echo("$username --- Joined: $joinDate");
     } 
     
 ?>
