@@ -14,12 +14,15 @@
     <body class="bg-secondary" style="font-family: Tahoma">
     <div id="top" class="container-fluid">
         <?php
-        include 'headfoot.php';
+        include '../headfoot.php';
         // This placeholder is for the search bar to lookup
         $my_bar = '
-            <input type="text" class="form-control" placeholder="Search users...">
+            <form method = "POST" action = "SearchForUsers.php">
+            <h1>Search for Users</h1><input type="string" name="usersearch" id="usersearch">
+            <button id="searchbutton">Search</button>
+            </form>
         ';
-        makeHeader($my_bar);
+        makeHeader($my_bar,"../");
         ?>
     </div>
     </body>

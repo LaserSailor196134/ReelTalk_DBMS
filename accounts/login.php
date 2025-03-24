@@ -2,6 +2,12 @@
  This file represents the page for users to login. 
  Data entered into the form by the user is processed by loginpost.php.
  -->
+<?php 
+include 'checkloggedin.php';
+if(isLoggedIn()) {
+    header("Location: ../home.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>

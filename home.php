@@ -19,7 +19,7 @@
         include 'headfoot.php';
         makeHeader();
         ?>
-        <div class="container-fluid">
+        <div class="container-fluid" style="min-height: 75vh">
             <div class="row justify-content-center py-4">
                 <div class="bg-dark rounded text-center col-6 m-4 py-3">
                     <h1 class="text-light fs-1 pt-3">Welcome to ReelTalk!<br></h1>
@@ -42,7 +42,7 @@
                     </p>
                 </div>
                 <div class="bg-dark rounded text-center col-3 mx-4 py-3">
-                    <a href="users.php" class="fs-5 btn btn-warning p-3"><i class="fa-solid fa-users"></i> Users</a>
+                    <a href="social/users.php" class="fs-5 btn btn-warning p-3"><i class="fa-solid fa-users"></i> Users</a>
                     <p class="text-light p-3">Encounter new users, view their recent bookmarks, and make friends!
                     </p>
                 </div>
