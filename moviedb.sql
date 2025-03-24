@@ -5,20 +5,8 @@ USE moviedb;
 CREATE TABLE IF NOT EXISTS account (
     username VARCHAR(50) PRIMARY KEY, 
     password VARCHAR(72) NOT NULL, -- bcrypt hash
-    joinDate DATETIME DEFAULT NOW() -- automatically generated
-);
-
-CREATE TABLE IF NOT EXISTS admin (
-    username VARCHAR(50), 
-    FOREIGN KEY (username) REFERENCES account(username)
-);
-
-CREATE TABLE IF NOT EXISTS dbuser (
-    username VARCHAR(50) PRIMARY KEY, 
-    -- friendCount INT, derived attribute
-    -- reviewCount INT, derived attribute
--- postgresql allows for automatically computing values for derived attributes, maybe try that later
-    FOREIGN KEY (username) REFERENCES account(username)
+    joinDate DATETIME DEFAULT NOW(), -- automatically generated
+    adminStatus BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE IF NOT EXISTS bookmark (
