@@ -1,5 +1,9 @@
+<!-- loginpost.php
+ This file handles form information posted by login.php.
+ If account details match a database entry, the user starts a session.
+ -->
 <?php
-include "config.php";
+include "../config.php";
 
 $username = $_POST["uname"];
 $password = $_POST["password"];
@@ -11,7 +15,7 @@ $checkusername -> store_result();
 if($checkusername -> num_rows == 0) {
     echo('<script>
         alert("Account does not exist");
-        window.location.href = "loginPage.php";
+        window.location.href = "login.php";
         </script>');
     close($checkusername);
     close($movies);
@@ -24,7 +28,7 @@ if(password_verify($password, $storedpassword)) {
     if(!session_start()) {
         echo('<script>
             alert("Session failed to start");
-            window.location.href = "loginPage.php";
+            window.location.href = "login.php";
             </script>');
         close($checkusername);
         close($movies);
@@ -33,7 +37,7 @@ if(password_verify($password, $storedpassword)) {
     $_SESSION["username"] = $username;
     echo('<script>
         alert("logged in successfully");
-        window.location.href = "home.php";
+        window.location.href = "../home.php";
         </script>');
     close($checkusername);
     close($movies);
@@ -42,7 +46,7 @@ if(password_verify($password, $storedpassword)) {
 } else {
     echo('<script>
         alert("Incorrect password");
-        window.location.assign("loginPage.php");
+        window.location.assign("login.php");
         </script>');
     close($checkusername);
     close($movies);

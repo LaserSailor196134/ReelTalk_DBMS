@@ -1,5 +1,10 @@
+<!-- loginpost.php
+ This file handles form information posted by delete.php.
+ If account details match a database entry, the account gets removed by the database.
+ -->
 <?php
-include "config.php";
+include "../config.php";
+include "./checkloggedin.php";
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["uname"];
@@ -11,7 +16,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     if($checkusername -> num_rows == 0) {
         echo('<script>
             alert("Account does not exist");
-            window.location.href = "delete.html";
+            window.location.href = "delete.php";
             </script>');
         close($checkusername);
         close($movies);
@@ -27,9 +32,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $deleteaccount = $movies -> prepare("DELETE FROM account WHERE username = ?");
         $deleteaccount -> bind_param("s", $username);
         $deleteaccount -> execute();
+        if(isLoggedIn()) { // Destroys the session if the user is logged in with the account.
+            session_destroy();
+        }
         echo('<script>
             alert("Account deleted");
-            window.location.href = "loginPage.php";
+            window.location.href = "login.php";
             </script>');
         close($checkusername);
         close($deleteuser);
@@ -39,7 +47,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo('<script>
             alert("Incorrect password");
-            window.location.href = "delete.html";
+            window.location.href = "delete.php";
             </script>');
         close($checkusername);
         close($movies);

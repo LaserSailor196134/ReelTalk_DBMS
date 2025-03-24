@@ -1,5 +1,10 @@
+<!-- regpost.php
+ This file handles form information posted by register.php.
+ After valid account details are entered, an entry for the user is created within the dbuser table.
+ If account details match a database entry, the account will not be created.
+ -->
 <?php
-include "config.php";
+include "../config.php";
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
     //getting username and password from the form
@@ -10,10 +15,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $checkusername -> bind_param('s', $username);
     $checkusername -> execute();
     $checkusername -> store_result();
-    if($checkusername -> num_rows > 0) {//if the username already exists
+    if($checkusername -> num_rows > 0) { //if the username already exists
         echo('<script>
             alert("username already exists");
-            window.location.href = "registerPage.php";
+            window.location.href = "register.php";
         </script>');
         close($checkusername);
         close($movies);
@@ -27,7 +32,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $registeruser = $movies -> prepare ('INSERT INTO dbuser (username) VALUES (?)');
         $registeruser -> bind_param('s', $username);
         $registeruser -> execute();
-        header('Location: loginPage.php');
+        header('Location: login.php');
         close($checkusername);
         close($registeraccount);
         close($registeruser);
