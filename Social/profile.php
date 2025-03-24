@@ -5,15 +5,19 @@ if(isLoggedIn()) { //if user is logged in
     include "../config.php";
     makeHeader('<br>', '../');
     //load user's user info
+    $user = urldecode($_GET['username']);
     $loadProfile = $movies -> prepare('SELECT username, joinDate FROM account WHERE username = ?');
-    $loadProfile -> bind_param('s', $_SESSION['username']);
+    $loadProfile -> bind_param('s', $user);
     $loadProfile -> execute();
     $loadProfile -> bind_result($username, $joinDate);
     $loadProfile -> fetch();
     echo("<h2>$username's profile</h2>
     <h3>Joined on $joinDate</h3>");
     $loadProfile -> close();
-    //this loads all of the users's bookmarks
+
+    //should load friends list here, and find following and follower count
+
+    //this loads all of the users's bookmarks, add 
     $loadBookmarks = $movies -> prepare('SELECT bookmark.watchStatus, bookmark.numberRating, bookmark.description, bookmark.dateCreated, media.name FROM CREATES
     JOIN bookmark ON CREATES.ratingID = bookmark.ratingID
     JOIN ABOUT ON bookmark.ratingID = ABOUT.ratingID

@@ -16,7 +16,7 @@ function makeAccBtn($root_rel = './') {
                 <i class="fa-solid fa-user"></i> ' . ($_SESSION["username"]) . '
             </button>
             <div class="dropdown-menu" aria-labelledby="accDrop">
-                <a class="dropdown-item" href="' . $root_rel . 'accounts/profile.php">My Profile</a>
+                <a class="dropdown-item" href="' . $root_rel . 'social/profile.php?username=' . urlencode($_SESSION['username']) . '">My Profile</a>
                 <a class="dropdown-item" href="' . $root_rel . 'accounts/logout.php">Logout</a>
                 <a class="dropdown-item text-danger" href="' . $root_rel . 'accounts/delete.php">Delete Account</a>
             </div>
