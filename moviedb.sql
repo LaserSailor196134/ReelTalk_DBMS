@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS CONTRIBUTED (
 CREATE TABLE IF NOT EXISTS CREATES (
     username VARCHAR(50),
     ratingID INT AUTO_INCREMENT,
-    FOREIGN KEY (username) REFERENCES dbuser(username),
+    FOREIGN KEY (username) REFERENCES account(username),
     FOREIGN KEY (ratingID) REFERENCES bookmark(ratingID)
 );
 
@@ -68,6 +68,6 @@ CREATE TABLE IF NOT EXISTS ABOUT (
 CREATE TABLE IF NOT EXISTS FRIENDS_WITH (
     username1 VARCHAR(50),
     username2 VARCHAR(50), 
-    FOREIGN KEY (username1) REFERENCES dbuser(username),
-    FOREIGN KEY (username2) REFERENCES dbuser(username)
+    FOREIGN KEY (username1) REFERENCES account(username),
+    FOREIGN KEY (username2) REFERENCES account(username)
 );

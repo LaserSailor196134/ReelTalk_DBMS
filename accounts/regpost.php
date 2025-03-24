@@ -11,7 +11,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['uname'];
     $password = $_POST['password'];
     //checking if the username already exists
-    $checkusername = $movies -> prepare('SELECT username FROM dbuser WHERE username = ?');
+    $checkusername = $movies -> prepare('SELECT username FROM account WHERE username = ?');
     $checkusername -> bind_param('s', $username);
     $checkusername -> execute();
     $checkusername -> store_result();
@@ -28,14 +28,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $registeraccount = $movies -> prepare ('INSERT INTO account (username, password) VALUES (?, ?)');
         $registeraccount -> bind_param('ss', $username, password_hash($password, PASSWORD_BCRYPT));
         $registeraccount -> execute();
-        //then register user afterwards, as it contains a foreign key
-        $registeruser = $movies -> prepare ('INSERT INTO dbuser (username) VALUES (?)');
-        $registeruser -> bind_param('s', $username);
-        $registeruser -> execute();
         header('Location: login.php');
         close($checkusername);
         close($registeraccount);
-        close($registeruser);
         close($movies);
         die();
     }
