@@ -1,9 +1,9 @@
 <?php
     include '../config.php';
 
-    $searchterm = $_POST['usersearch'];
+    $searchterm = '%'.$_POST['usersearch'].'%';
     echo("<h1>Results</h1>");
-    $findUsers = $movies -> prepare('SELECT username, joinDate FROM account WHERE username = ?');
+    $findUsers = $movies -> prepare("SELECT username, joinDate FROM account WHERE username LIKE ?");
     $findUsers -> bind_param('s',$searchterm);
     $findUsers -> execute();
     $findUsers -> bind_result($username,$joinDate);
