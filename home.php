@@ -42,7 +42,7 @@
                     </p>
                 </div>
                 <div class="bg-dark rounded text-center col-3 mx-4 py-3">
-                    <a href="users.php" class="fs-5 btn btn-warning p-3"><i class="fa-solid fa-users"></i> Users</a>
+                    <a href="social/users.php" class="fs-5 btn btn-warning p-3"><i class="fa-solid fa-users"></i> Users</a>
                     <p class="text-light p-3">Encounter new users, view their recent bookmarks, and make friends!
                     </p>
                 </div>
