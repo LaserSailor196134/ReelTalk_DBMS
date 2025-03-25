@@ -6,8 +6,9 @@
 <?php
 // This function echos the HTML/Bootstrap necessary to produce the account button.
 // The functionality of this button is dependent on whether the user is logged_in.
+// $root_rel provides the location of the root relative to the current folder.
 function makeAccBtn($root_rel = './') {
-    include_once "accounts/checkloggedin.php";
+    include_once ($root_rel . "accounts/checkloggedin.php");
     if(isLoggedIn()) {
         echo '
         <div class="dropdown">
@@ -89,7 +90,8 @@ function makeFooter() {
 
 // Function used to construct bookmarks for a variety of pages.
 // Felt it was better to place here instead of another page for include reasons.
-function makeBookmark($user, $film, $date, $description = 'Plan to Watch!', $rating = 'Watchlisted') {
+function makeBookmark($user, $film, $date, $description = 'Plan to Watch!', $rating = 'Watchlisted', $root_rel = './') {
+    include_once ($root_rel . "accounts/checkloggedin.php");
     $rating = strval($rating);
     if(strcmp($rating, 'Watchlisted') != 0) {
         $rating = 'Rated ' . $rating . ' <i class="fa-solid fa-web-awesome"></i>';
