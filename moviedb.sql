@@ -5,7 +5,7 @@ USE moviedb;
 CREATE TABLE IF NOT EXISTS account (
     username VARCHAR(50) PRIMARY KEY, 
     password VARCHAR(72) NOT NULL, -- bcrypt hash
-    joinDate DATETIME DEFAULT NOW(), -- automatically generated
+    joinDate DATE DEFAULT (CURRENT_DATE), -- automatically generated
     adminStatus BOOLEAN DEFAULT FALSE
 );
 
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS bookmark (
     watchStatus VARCHAR(10) NOT NULL,
     numberRating INT,
     description VARCHAR(300), -- not sure of the length, should manage max length on front end as well
-    dateCreated DATETIME DEFAULT NOW()
+    dateCreated DATE DEFAULT (CURRENT_DATE)
 );
 
 CREATE TABLE IF NOT EXISTS media (
@@ -55,13 +55,13 @@ CREATE TABLE IF NOT EXISTS CREATES (
     username VARCHAR(50),
     ratingID INT AUTO_INCREMENT,
     FOREIGN KEY (username) REFERENCES account(username),
-    FOREIGN KEY (ratingID) REFERENCES bookmark(ratingID)
+    FOREIGN KEY (ratingID) REFERENCES bookmark(ratingID) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS ABOUT (
     ratingID INT AUTO_INCREMENT,
     mediaID INT,
-    FOREIGN KEY (ratingID) REFERENCES bookmark(ratingID),
+    FOREIGN KEY (ratingID) REFERENCES bookmark(ratingID) ON DELETE CASCADE,
     FOREIGN KEY (mediaID) REFERENCES media(mediaID)
 );
 
