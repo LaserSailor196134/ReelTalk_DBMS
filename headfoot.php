@@ -86,4 +86,33 @@ function makeFooter() {
     </footer>
     '; // We might have to remove the top button later depending how we implement searches.
 }
+
+// Function used to construct bookmarks for a variety of pages.
+// Felt it was better to place here instead of another page for include reasons.
+function makeBookmark($user, $film, $date, $description = 'Plan to Watch!', $rating = 'Watchlisted') {
+    $rating = strval($rating);
+    if(strcmp($rating, 'Watchlisted') != 0) {
+        $rating = 'Rated ' . $rating . ' <i class="fa-solid fa-web-awesome"></i>';
+    }
+    
+    // Keep in mind we can modify the styling as needed;
+    echo '
+        <div class="col-5 bg-dark text-white rounded p-3 m-2">
+            <h3 class="fs-5 text-warning">' . $film . ' Bookmark</h3>
+            <p class="text-warning">' . $rating . ' by '. $user . ' (' . $date . ')</p>
+            <p>' . $description . '</p>
+    ';
+    
+    if(isLoggedIn()) {
+        if(strcmp($user, $_SESSION['username']) == 0) {
+            echo '
+            <button class="btn btn-warning">Edit <i class="fa-solid fa-square-pen"></i></button>
+            <button class="btn btn-danger text-dark">Delete <i class="fa-solid fa-trash"></i></button>
+            ';
+        }
+    }
+    echo '
+        </div>
+    ';
+}
 ?>
