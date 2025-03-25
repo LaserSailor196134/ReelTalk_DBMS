@@ -55,13 +55,13 @@ CREATE TABLE IF NOT EXISTS CREATES (
     username VARCHAR(50),
     ratingID INT AUTO_INCREMENT,
     FOREIGN KEY (username) REFERENCES account(username),
-    FOREIGN KEY (ratingID) REFERENCES bookmark(ratingID)
+    FOREIGN KEY (ratingID) REFERENCES bookmark(ratingID) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS ABOUT (
     ratingID INT AUTO_INCREMENT,
     mediaID INT,
-    FOREIGN KEY (ratingID) REFERENCES bookmark(ratingID),
+    FOREIGN KEY (ratingID) REFERENCES bookmark(ratingID) ON DELETE CASCADE,
     FOREIGN KEY (mediaID) REFERENCES media(mediaID)
 );
 
