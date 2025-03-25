@@ -11,10 +11,13 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://kit.fontawesome.com/63ff890171.js" crossorigin="anonymous"></script>
         <style>
-            .scrollable_table {
+            .scrollable-table {
                 max-height: 400px;
                 display: inline-block;
                 overflow: auto;
+            }
+            .body-col {
+                background-color: #FFF3CD;
             }
         </style>
     </head>
@@ -27,7 +30,6 @@
         ';
         makeHeader($my_bar);
         ?>
-        <!-- mediaID (invisible) name description MPARating length/episode count -->
         <!-- Example layout. Convert to function later, with relevant  -->
         <div class="container bg-dark rounded mb-5">
             <!-- Film title -->
@@ -36,12 +38,12 @@
                     <!-- Main film information -->
                     <h1 class="fs-2 pt-2">Nosferatu</h1>
                     <p class="text-secondary">[poster placeholder]</p>
-                    <p class="text-secondary">#[ID]</p>
+                    <p class="text-secondary">#[ID]</p> <!-- Maybe don't include ID -->
                 </div>
             </div>
             <div class="row justify-content-center pb-5">
                 <!-- Film information -->
-                <div class="col-5 bg-warning rounded mx-2">
+                <div class="col-5 body-col rounded mx-2">
                     <p class="pt-2">MPA Rating: R-18</p>
                     <p>Length [Episode Count]: 2hr20min </p>
                     <p>Release Date: 2024-12-25</p>
@@ -50,13 +52,14 @@
                     gravewarming adventure.</p>
                     <p>Review Score: 3.7 / 5</p>
                     <p>Availability: Amazon Prime, Netflix, Disney+</p>
+                    <!-- Change these to let user place bookmark on page -->
                     <a href="" class="btn btn-light p-1 my-2">Add Bookmark</a>
                     <a href="" class="btn btn-light p-1 my-2 ms-2">See Bookmarks</a>
                 </div>
                 <!-- Cast/Crew -->
-                <div class="col-5 scrollable_table">
+                <div class="col-5 scrollable-table">
                     <table class="table table-striped table-warning">
-                        <thead class="">
+                        <thead>
                             <tr>
                                 <th>Crew Member</th>
                                 <th>Role</th>
@@ -107,9 +110,7 @@
             </div>
             -->
         </div>
-        <?php
-        makeFooter();
-        ?>
+        <?php makeFooter(); ?>
     </div>
     </body>
 </html>

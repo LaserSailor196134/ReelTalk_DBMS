@@ -23,7 +23,7 @@
             <div class="row justify-content-center py-4">
                 <div class="bg-dark rounded text-center col-6 m-4 py-3">
                     <h1 class="text-light fs-1 pt-3">Welcome to ReelTalk!<br></h1>
-                    <h2 class="text-warning fs-5">It's like goodreads&reg; for movies<br></h2>
+                    <h2 class="text-warning fs-5">It's like Goodreads for movies<br></h2>
                     <p class="text-light">ReelTalk is an interactive database that allows you to search through all your
                     favourite movies and stars. While searching, you can add films to your watchlist and post reviews with our
                     bookmark features. If that isn't enough, you can take a look at other user reviews and send friend requests.
@@ -49,9 +49,7 @@
             </div>
         </div>
         <div class="pt-5">
-            <?php
-            makeFooter();
-            ?>
+            <?php makeFooter(); ?>
         <div>
     </div>
     </body>

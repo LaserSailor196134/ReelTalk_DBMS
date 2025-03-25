@@ -2,6 +2,12 @@
  This file represents the page for deleting user accounts. 
  Data entered into the form by the user is processed by delpost.php.
  -->
+ <?php 
+include 'checkloggedin.php';
+if(!isLoggedIn()) {
+    header("Location: ../home.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -32,10 +38,10 @@
             <div class="text-light rounded bg-dark col-6 p-3">
                 <h2 class="text-warning fs-3 pt-2 px-2">Leaving ReelTalk</h2>
                 <form name="delete" method="POST" action="delpost.php" onsubmit="return validateForm()">
-                    <label class="p-2" for="uname">Username for Account</label>
+                    <label class="p-2" for="uname">Username for Account</label> <!-- Delete later -->
                     <input class="form-control p-2" type="text" id="uname" name="uname" placeholder="Username" autofocus required>
                     <label class="p-2" for="password">Password for Account</label>
-                    <input class="form-control p-2" type="password" id="password" name="password" placeholder="Password" required>
+                    <input class="form-control p-2" type="password" id="password" name="password" placeholder="Password" autofocus required>
                     <div class="form-check m-2">
                         <input class="form-check-input" type="checkbox" id="flexCheckDefault" required>
                         <label class="form-check-label" for="flexCheckDefault">
