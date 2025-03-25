@@ -16,7 +16,56 @@ echo("<h2>$username's profile</h2>
 $loadProfile -> close();
 
 //should load friends list here, and find following and follower count
-
+$findFollowing = $movies -> prepare('SELECT COUNT(username1) FROM FRIENDS_WITH WHERE username1 = ?');
+$findFollowing -> bind_param('s', $username);
+$findFollowing -> execute();
+$findFollowing -> bind_result($followingCount);
+$findFollowing -> fetch();
+echo("<p>following $followingCount users and ");
+$findFollowing -> close();
+$findFollowedBy = $movies -> prepare('SELECT COUNT(username1) FROM FRIENDS_WITH WHERE username2 = ?');
+$findFollowedBy -> bind_param('s', $username);
+$findFollowedBy -> execute();
+$findFollowedBy -> bind_result($followedCount);
+$findFollowedBy -> fetch();
+echo("followed by $followedCount users</p>");
+$findFollowedBy -> close();
+$generateFollowing = $movies -> prepare('SELECT username2 FROM FRIENDS_WITH WHERE username1 = ?');
+$generateFollowing -> bind_param('s', $username);
+$generateFollowing -> execute();
+$generateFollowing -> store_result();
+if($generateFollowing -> num_rows == 0) {
+    echo("<h3>Not following anyone</h3>");
+} else {
+    $generateFollowing -> bind_result($followedUser);
+    echo("<h3>Following: </h3>");
+    while($generateFollowing -> fetch()) {
+        echo("<p>$followedUser</p>");
+        if(isLoggedIn() && $_SESSION['username'] == $user) {
+            echo("
+            <form name=\"removeFollower\" method=\"POST\" action=\"removeFollower.php\">
+                <input type=\"hidden\" name=\"user\" value=\"$user\">
+                <input type=\"hidden\" name=\"follower\" value=\"$followedUser\">
+                <input class=\"btn btn-warning p-2 mt-4\" type=\"submit\" value=\"Unfollow\">
+            </form>");
+        }
+    }
+}
+$generateFollowing -> close();
+$generateFollowers = $movies -> prepare('SELECT username1 FROM FRIENDS_WITH WHERE username2 = ?');
+$generateFollowers -> bind_param('s', $username);
+$generateFollowers -> execute();
+$generateFollowers -> store_result();
+if($generateFollowers -> num_rows == 0) {
+    echo("<h3>No followers</h3>");
+} else {
+    $generateFollowers -> bind_result($followingUser);
+    echo("<h3>Followed by: </h3>");
+    while($generateFollowers -> fetch()) {
+        echo("<p>$followingUser</p>");
+    }
+}
+$generateFollowers -> close();
 //this loads all of the users's bookmarks, add 
 $loadBookmarks = $movies -> prepare('SELECT bookmark.watchStatus, bookmark.numberRating, bookmark.description, bookmark.dateCreated, media.name FROM CREATES
 JOIN bookmark ON CREATES.ratingID = bookmark.ratingID
