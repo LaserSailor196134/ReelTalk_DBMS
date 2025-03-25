@@ -39,7 +39,7 @@
 
         // Check if a search is requested.
         if (!empty($search_query)) {
-            $api_key = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlN2RlMmE4YWYxYmRmMzdiY2NhNDI2Y2ZjNTQ4MWFkMyIsIm5iZiI6MTczODg3OTc3Ni41MzksInN1YiI6IjY3YTUzMzIwNTA4OGI5NDU5NzJmZTBhNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.PhOMmKjQYwxCiCfCrD0pFIhNpwC3nB5S1tIxRy3qkS4"; // Replace with your actual TMDB API key
+            $api_key = "API_TOKEN_GOES_HERE"; // Replace with API Bearer token.
             $api_url = "https://api.themoviedb.org/3/search/movie?query=" . urlencode($search_query);
             
             // cURL setup.
