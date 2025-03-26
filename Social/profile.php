@@ -1,4 +1,5 @@
 <?php
+//loads the profile for a person
 include "../accounts/checkloggedin.php";
 include "../headfoot.php";
 include "../config.php";

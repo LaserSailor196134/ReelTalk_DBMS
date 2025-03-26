@@ -1,4 +1,5 @@
 <?php
+//clears session to log the user out
 session_start();
 session_destroy();
 echo('<script>

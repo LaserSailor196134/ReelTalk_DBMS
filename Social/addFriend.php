@@ -1,4 +1,5 @@
 <?php 
+//page that adds a follower when given form data
 include "../accounts/checkloggedin.php";
 if(!isLoggedIn()) {
     header("Location: ../home.php");
