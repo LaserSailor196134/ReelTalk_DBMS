@@ -1,9 +1,12 @@
-<body?>
+<body>
 <?php
     include "config.php";
-
-    $username = 'Annar';
-    $mediaID = 43214321;
+    include 'accounts/checkloggedin.php';
+    if(!isLoggedIn()) {
+        die();
+    } 
+    $username = $_SESSION['username'];
+    //$mediaID = $_POST['movie_id'];
     $watchStatus = $_POST['typeOfBookmark'];
     $review = $_POST['review'];
     $rating = $_POST['rating'];
@@ -25,7 +28,7 @@
     $saveBookmarkA -> bind_param('ii',$bookmarkID,$mediaID);
     $saveBookmarkA -> execute();
 
-    echo("successfully saved review")
+    echo("Successfully Saved Review")
 
 ?>
 </body>

@@ -17,12 +17,11 @@
         <option value = "5">***** Five stars</option>
     </select>
     <h2>Review</h2>
-    <textarea name = "review" rows = "4"></textarea>
-
-    <!--<input type="hidden" name="username" value="$username">
-    <input type="hidden" name="follower" value="">-->
-
-    
+    <textarea name = "review" rows = "4"></textarea>  
+    </form>
+    <?php $movieID = $_POST['movie_id'];?>
+    <form method='POST' action='movies.php'>
+        <input type='hidden' name='movie_id' value='{$movie_id}'>
     </form>
     <button type= "submit" form = "form1" value="Publish">Publish</button>
 </body>
