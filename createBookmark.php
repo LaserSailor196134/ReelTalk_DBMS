@@ -1,6 +1,13 @@
 <body>
     <form method = "POST" action = "createBookmark.php">
-    <h2>Rating</h2><select id = "rating">
+    <select id = "typeOfBookmark">
+        <option value = "Want to Watch">Want to Watch</option>
+        <option value = "Currently Watching">Currently Watching</option>
+        <option value = "Watched">Watched</option>
+    </select>
+
+    <h2>Rating</h2>
+    <select id = "rating">
         <option value = "null">Rate the Movie</option>
         <option value = "1">* One star</option>
         <option value = "2">** Two stars</option>
@@ -15,7 +22,8 @@
     
     <?php
         include "config.php";
-
+    
+        $typeOfBookmark = $_POST['typeOfBookmark'];
         $review = $_POST['review'];
         $rating = $_POST['rating'];
 
