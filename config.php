@@ -1,4 +1,5 @@
 <?php
+//creates a connection to the database
 define("HOST", "Localhost");
 define("USER", "movieguy");
 // password should be put in an environment variable instead of hardcoded
