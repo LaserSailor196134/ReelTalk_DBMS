@@ -66,10 +66,9 @@ CREATE TABLE IF NOT EXISTS ABOUT (
 );
 
 CREATE TABLE IF NOT EXISTS FRIENDS_WITH (
-
     username1 VARCHAR(50),
     username2 VARCHAR(50), 
     PRIMARY KEY (username1, username2),
-    FOREIGN KEY (username1) REFERENCES account(username),
-    FOREIGN KEY (username2) REFERENCES account(username)
+    FOREIGN KEY (username1) REFERENCES account(username) ON DELETE CASCADE,
+    FOREIGN KEY (username2) REFERENCES account(username) ON DELETE CASCADE
 );
