@@ -7,13 +7,18 @@
     $watchStatus = $_POST['typeOfBookmark'];
     $review = $_POST['review'];
     $rating = $_POST['rating'];
-    echo("<h1>$username $mediaID $watchStatus $review $rating</h1>");
 
+    $startTrans = $movies->prepare("START TRANSACTION");
+    $startTrans->execute();
 
     $saveBookmark = $movies -> prepare("INSERT INTO bookmark(watchStatus,numberRating,description) VALUES (?,?,?)");
     $saveBookmark -> bind_param('sis',$watchStatus,$rating,$review);
     $saveBookmark -> execute();
-    $bookmarkID -> lastInsertID();
+    $bmID = $movies -> prepare("SELECT LAST_INSERT_ID()");
+    $bmID -> execute();
+    $bmID -> bind_result($bookmarkID);
+    $bmID -> fetch();
+    $bmID -> close();
 
     $saveBookmarkC = $movies -> prepare("INSERT INTO CREATES(username,ratingID) VALUES (?,?)");
     $saveBookmarkC -> bind_param('si',$username,$bookmarkID);
@@ -23,6 +28,10 @@
     $saveBookmarkA -> bind_param('ii',$bookmarkID,$mediaID);
     $saveBookmarkA -> execute();
 
+    $commit = $movies->prepare("COMMIT");
+    $commit->execute();
+
+    echo("successfully saved review")
 
 ?>
 </body>
