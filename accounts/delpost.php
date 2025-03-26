@@ -39,7 +39,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             $deleteBookmark -> execute();
             $deleteBookmark -> close();
         }
-        $deleteuser = $movies -> prepare("DELETE FROM dbuser WHERE username = ?");
+        $deleteuser = $movies -> prepare("DELETE FROM account WHERE username = ?");
         $deleteuser -> bind_param("s", $username);
         $deleteuser -> execute();
         $deleteaccount = $movies -> prepare("DELETE FROM account WHERE username = ?");
