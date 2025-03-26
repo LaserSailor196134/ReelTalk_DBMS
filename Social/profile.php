@@ -62,9 +62,8 @@
         ";
         
         // Adding follow/unfollow button to profiles.
-        // $viewer is the current page viewer.
-        $viewer = $_SESSION['username'];
-        if(isLoggedIn() && $viewer != $user) {
+        if(isLoggedIn() &&  $_SESSION['username'] != $user) {
+            $viewer = $_SESSION['username']; // $viewer is the current page viewer. Useful for echo. 
             $checkFriend = $movies -> prepare('SELECT * FROM FRIENDS_WITH WHERE username1 = ? AND username2 = ?');
             $checkFriend -> bind_param('ss', $viewer, $user);
             $checkFriend -> execute();
