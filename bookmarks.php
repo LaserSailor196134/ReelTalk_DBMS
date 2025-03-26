@@ -1,4 +1,5 @@
 <?php
+    //get all bookmarks for a movie or tv show
     include '../config.php';
     $media = urldecode($_GET['mediaID']);
 
