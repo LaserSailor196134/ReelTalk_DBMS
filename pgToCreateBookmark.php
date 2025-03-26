@@ -18,6 +18,11 @@
     </select>
     <h2>Review</h2>
     <textarea name = "review" rows = "4"></textarea>
+
+    <!--<input type="hidden" name="username" value="$username">
+    <input type="hidden" name="follower" value="">-->
+
+    
     </form>
     <button type= "submit" form = "form1" value="Publish">Publish</button>
 </body>

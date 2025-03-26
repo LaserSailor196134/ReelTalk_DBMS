@@ -8,9 +8,6 @@
     $review = $_POST['review'];
     $rating = $_POST['rating'];
 
-    $startTrans = $movies->prepare("START TRANSACTION");
-    $startTrans->execute();
-
     $saveBookmark = $movies -> prepare("INSERT INTO bookmark(watchStatus,numberRating,description) VALUES (?,?,?)");
     $saveBookmark -> bind_param('sis',$watchStatus,$rating,$review);
     $saveBookmark -> execute();
@@ -27,9 +24,6 @@
     $saveBookmarkA = $movies -> prepare("INSERT INTO ABOUT(ratingID,mediaID) VALUES (?,?)");
     $saveBookmarkA -> bind_param('ii',$bookmarkID,$mediaID);
     $saveBookmarkA -> execute();
-
-    $commit = $movies->prepare("COMMIT");
-    $commit->execute();
 
     echo("successfully saved review")
 
