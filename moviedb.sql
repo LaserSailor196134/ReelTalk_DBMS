@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS account (
 CREATE TABLE IF NOT EXISTS bookmark (
     ratingID INT AUTO_INCREMENT PRIMARY KEY,
     watchStatus ENUM("Want to Watch","Currently Watching","Watched"),
-    numberRating INT CHECK(numberRating BETWEEN 1 AND 5),
+    numberRating INT,
     description VARCHAR(300), -- not sure of the length, should manage max length on front end as well
     dateCreated DATE DEFAULT (CURRENT_DATE)
 );
