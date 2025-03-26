@@ -155,20 +155,19 @@
                 <h2 class=\"fs-3 text-center\">Bookmarks</h2>
             </div>
         </div>
-        <div class=\"row justify-content-center align-items-center\" style=\"min-height: 10vh\">
+        <div class=\"row justify-content-center align-items-center\" style=\"min-height: 20vh\">
         ";
         if($loadBookmarks -> num_rows > 0) {
             $loadBookmarks -> bind_result($watchStatus, $numberRating, $description, $dateCreated, $movie);
             while($loadBookmarks -> fetch()) {
-                makeBookmark($user, $movie, $dateCreated, $description, $numberRating, '../'); // Add watchstatus...
+                makeBookmark($user, $movie, $dateCreated, $watchStatus, $description, $numberRating, '../');
             }
         } else {
+            // makeBookmark($user, 'Nosferatu', '2025', root_rel : '../');
             echo "
-            <div class=\"row justify-content-center align-items-center\" style=\"min-height: 30vh\">
                 <div class=\"col-2 text-center\">
                     <p class=\"bg-dark rounded text-white p-2\">No Bookmarks in sight</p>
                 </div>
-            </div>
             ";
         }
         echo '</div>';

@@ -18,7 +18,7 @@ function makeAccBtn($root_rel = './') {
                 <i class="fa-solid fa-user"></i> ' . ($_SESSION["username"]) . '
             </button>
             <div class="dropdown-menu" aria-labelledby="accDrop">
-                <a class="dropdown-item" href="' . $root_rel . 'social/profile.php?username=' . urlencode($_SESSION['username']) . '">My Profile</a>
+                <a class="dropdown-item" href="' . $root_rel . 'social/profile.php?username=' . urlencode($_SESSION['username']) . '">Profile</a>
                 <a class="dropdown-item" href="' . $root_rel . 'accounts/logout.php">Logout</a>
                 <a class="dropdown-item text-danger" href="' . $root_rel . 'accounts/delete.php">Delete Account</a>
             </div>
@@ -91,7 +91,7 @@ function makeFooter() {
 
 // Function used to construct bookmarks for a variety of pages.
 // Felt it was better to place here instead of another page for include reasons.
-function makeBookmark($user, $film, $date, $desc = 'Plan to Watch!', $rating = 'Unrated', $root_rel = './') {
+function makeBookmark($user, $film, $date, $status = 'Want to Watch', $desc = 'Plan to Watch!', $rating = 'Unrated', $root_rel = './') {
     include_once ($root_rel . "accounts/checkloggedin.php");
     $idd = $user . $date; // IDs for the description and inbox box.
     $rating = strval($rating);
@@ -102,10 +102,11 @@ function makeBookmark($user, $film, $date, $desc = 'Plan to Watch!', $rating = '
     
     // Keep in mind we can modify the styling as needed;
     echo '
-        <div class="col-5 bg-dark text-white rounded p-3 m-2">
+        <div class="col-5 bg-dark text-light rounded p-3 m-2">
             <h3 class="fs-5 text-warning">' . $film . ' Bookmark</h3>
-            <p class="text-warning">' . $rating . ' by '. $user . ' (' . $date . ')</p>
-            <p>' . $desc . '</p>
+            <p>' . $status . ' - '. $user . ' (' . $date . ')</p>
+            <p>' . $desc . '</p><br>
+            <p class="text-warning">' . $rating . '</p>
     ';
     
     if(isLoggedIn()) {
