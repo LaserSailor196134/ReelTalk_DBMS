@@ -91,9 +91,9 @@ function makeFooter() {
 
 // Function used to construct bookmarks for a variety of pages.
 // Felt it was better to place here instead of another page for include reasons.
-function makeBookmark($user, $film, $date, $status = 'Want to Watch', $desc = 'Plan to Watch!', $rating = 'Unrated', $root_rel = './') {
+function makeBookmark($idb, $user, $film, $date, $status = 'Want to Watch', $desc = 'Plan to Watch!', $rating = 'Unrated', $root_rel = './') {
     include_once ($root_rel . "accounts/checkloggedin.php");
-    $idd = $user . $date; // IDs for the description and inbox box.
+    $idd = $user . $film_id; // IDs for the description and inbox box.
     $rating = strval($rating);
 
     if(strcmp($rating, 'Unrated') != 0) {
