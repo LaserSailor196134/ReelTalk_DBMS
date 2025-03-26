@@ -25,7 +25,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     $checkusername -> bind_result($storedpassword);
     $checkusername -> fetch();
-    if(password_verify($password, $storedpassword)) {
+    if(password_verify($password, $storedpassword)) { //need to delete bookmarks too, friends can cascade
+        $findBookmarks = $movies -> prepare('SELECT CREATES.ratingID FROM account
+        JOIN CREATES ON account.username = CREATES.username
+        WHERE account.username = ?');
+        $findBookmarks -> bind_param('s', $username);
+        $findBookmarks -> execute();
+        $findBookmarks -> store_result();
+        $findBookmarks -> bind_result($bookmarks);
+        while($findBookmarks -> fetch()) {
+            $deleteBookmark = $movies -> prepare('DELETE FROM bookmarks WHERE ratingID = ?');
+            $deleteBookmark -> bind_param('i', $bookmarks);
+            $deleteBookmark -> execute();
+            $deleteBookmark -> close();
+        }
         $deleteuser = $movies -> prepare("DELETE FROM dbuser WHERE username = ?");
         $deleteuser -> bind_param("s", $username);
         $deleteuser -> execute();
