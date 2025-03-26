@@ -1,4 +1,4 @@
-<!-- accountbtn.php
+<!-- headfoot.php
  This file contains functions that echo reusable portions of HTML.
  Utilities here include drop-down menus for accounts and the website logo.
  The makeAccBtn() call has an include_once for checkloggedin.php.
@@ -91,12 +91,12 @@ function makeFooter() {
 
 // Function used to construct bookmarks for a variety of pages.
 // Felt it was better to place here instead of another page for include reasons.
-function makeBookmark($user, $film, $date, $desc = 'Plan to Watch!', $rating = 'Watchlisted', $root_rel = './') {
+function makeBookmark($user, $film, $date, $desc = 'Plan to Watch!', $rating = 'Unrated', $root_rel = './') {
     include_once ($root_rel . "accounts/checkloggedin.php");
-    $idd = $user . $film; // IDs for the description and inbox box.
+    $idd = $user . $date; // IDs for the description and inbox box.
     $rating = strval($rating);
 
-    if(strcmp($rating, 'Watchlisted') != 0) {
+    if(strcmp($rating, 'Unrated') != 0) {
         $rating = 'Rated ' . $rating . ' <i class="fa-solid fa-web-awesome"></i>';
     }
     
