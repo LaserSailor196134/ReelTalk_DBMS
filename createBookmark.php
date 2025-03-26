@@ -1,5 +1,6 @@
 <body>
     <form method = "POST" action = "createBookmark.php">
+    <h2>Status</h2>
     <select id = "typeOfBookmark">
         <option value = "Want to Watch">Want to Watch</option>
         <option value = "Currently Watching">Currently Watching</option>
