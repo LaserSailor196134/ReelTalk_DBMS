@@ -73,7 +73,7 @@
                         </form>");
                     } else {
                         echo("<form name=\"removeFollower\" method=\"POST\" action=\"removeFollower.php\">
-                            <input type=\"hidden\" name=\"user\" value=\"$user\">zzzzzzzzzzzzz
+                            <input type=\"hidden\" name=\"user\" value=\"$user\">
                             <input type=\"hidden\" name=\"follower\" value=\"$username\">
                             <input class=\"btn btn-warning p-2 mt-4\" type=\"submit\" value=\"Unfollow\">
                         </form>");
