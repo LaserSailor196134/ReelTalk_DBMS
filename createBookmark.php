@@ -6,7 +6,7 @@
         die();
     } 
     $username = $_SESSION['username'];
-    //$mediaID = $_POST['movie_id'];
+    $mediaID = $_POST['movie_id'];
     $watchStatus = $_POST['typeOfBookmark'];
     $review = $_POST['review'];
     $rating = $_POST['rating'];

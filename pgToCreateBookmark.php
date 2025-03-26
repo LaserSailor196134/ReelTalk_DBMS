@@ -1,6 +1,10 @@
 <body>
     <form method = "POST" action = "createBookmark.php" id="form1">
     <h2>Status</h2>
+    <?php
+    $movieID = $_POST['movie_id'];
+    echo("<input type='hidden' name='movie_id' value='$movieID'>");
+    ?>
     <select name = "typeOfBookmark">
         <option value = "Want to Watch">Want to Watch</option>
         <option value = "Currently Watching">Currently Watching</option>
@@ -18,13 +22,6 @@
     </select>
     <h2>Review</h2>
     <textarea name = "review" rows = "4"></textarea>  
+    <input type="submit" value="add review">
     </form>
-    <?php
-    $movieID = $_POST['movie_id'];
-    echo("<form method='POST' action='movies.php'>
-        <input type='hidden' name='movie_id' value='$movieID'>
-        <button type= \"submit\" form = \"form1\" value=\"Publish\">Publish</button>
-    </form>
-    ");
-    ?>
 </body>
