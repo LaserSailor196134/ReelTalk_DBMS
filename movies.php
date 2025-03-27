@@ -81,7 +81,7 @@
                         <div class='card'>
                             <img src='{$poster}' class='card-img-top' alt='{$title}'>
                             <div class='card-body'>
-                                <form method='POST' action='filmshow.php'> 
+                                <form method='POST' action='movies.php'> 
                                     <input type='hidden' name='movie_id' value='{$movie_id}'>
                                     <button type='submit' class='card-title'>{$title}</button>
                                 </form>
@@ -181,29 +181,44 @@
         <!-- <h5 class='card-title'>{$title}</h5> Deprecated code-->
         <!-- mediaID (invisible) name description MPARating length/episode count -->
         <!-- Example layout. Convert to function later, with relevant  -->
+         
         <div class="container bg-dark rounded mb-5">
             <!-- Film title -->
             <div class="row justify-content-center py-5 mt-5">
                 <div class="col-6 bg-warning rounded text-center">
                     <!-- Main film information -->
-                    <h1 class="fs-2 pt-2">Nosferatu</h1>
+                    <?php $movie_id = $_POST['movie_id'];
+                    $getMovieInfo = $movies -> prepare('SELECT media.mediaID, media.name, media.description, media.MPARating, movie.length, TVShow.episodeCount FROM media
+                    LEFT JOIN movie ON movie.mediaID = media.mediaID
+                    LEFT JOIN TVShow ON TVShow.mediaID = media.mediaID
+                    WHERE media.mediaID = ?');
+                    $getMovieInfo -> bind_param('i', $movie_id);
+                    $getMovieInfo -> execute();
+                    $getMovieInfo -> bind_result($mediaID, $mediaName, $mediaDescription, $MPARating, $movieLength, $episodeCount);
+                    $getMovieInfo -> fetch();
+                    echo('<h1 class="fs-2 pt-2">' . $mediaName . '</h1>
                     <p class="text-secondary">[poster placeholder]</p>
-                    <p class="text-secondary">#[ID]</p>
+                    <p class="text-secondary">' . $mediaID . '</p> <!-- Maybe don\'t include ID -->
                 </div>
             </div>
             <div class="row justify-content-center pb-5">
                 <!-- Film information -->
                 <div class="col-5 bg-warning rounded mx-2">
-                    <p class="pt-2">MPA Rating: R-18</p>
-                    <p>Length [Episode Count]: 2hr20min </p>
-                    <p>Release Date: 2024-12-25</p>
-                    <p>Description: Nosferatu is a gut-busting romp through the faraway land of
-                    transylvania. Laughs and gaffs await the whole family in this
-                    gravewarming adventure.</p>
-                    <p>Review Score: 3.7 / 5</p>
-                    <p>Availability: Amazon Prime, Netflix, Disney+</p>
-                    <a href="" class="btn btn-light p-1 my-2">Add Bookmark</a>
-                    <a href="" class="btn btn-light p-1 my-2 ms-2">See Bookmarks</a>
+                    <p class="pt-2">MPA Rating: ' . $MPARating . '</p>
+                    <p>Length ' . $movieLength . ' minutes</p>
+                    <p>Release Date: Not in database</p>
+                    <p>Description: ' . $mediaDescription . '</p>
+                    <p>Availability: No streaming availability yet.</p>
+                    <!-- Change these to let user place bookmark on page -->
+                    <form method="POST" action="pgToCreateBookmark.php">
+                        <input type="hidden" name="movie_id" value=' . $movie_id . '>
+                        <input class=\"btn btn-light p-1 my-2\" type="submit" value="Add Bookmark">
+                    </form>
+                    <form method="POST" action="getbookmarkformovie.php">
+                        <input type="hidden" name="movie_id" value=' . $movie_id . '>
+                        <input class=\"btn btn-light p-1 my-2\" type="submit" value="See Bookmarks">
+                    </form>');
+                    ?>
                 </div>
                 <!-- Cast/Crew -->
                 <div class="col-5 scrollable_table">
