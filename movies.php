@@ -117,11 +117,11 @@
             $movie_details = json_decode($response, true);
 
             if (!empty($movie_details)) {
-                // Get movie details
+                // Get movie details, bunch of extra stuff in case we want it.
                 $title = $movie_details['title'];
                 $poster_path = !empty($movie_details['poster_path']) ? "https://image.tmdb.org/t/p/w500" . $movie_details['poster_path'] : "";
                 $release_date = !empty($movie_details['release_date']) ? $movie_details['release_date'] : "N/A";
-                $overview = !empty($movie_details['overview']) ? $movie_details['overview'] : "No description available.";
+                $overview = !empty($movie_details['overview']) ? substr($movie_details['overview'], 0, 300) : "No description available."; //Had to cap this to avoid hitting issues with db setup.
                 $mpa_rating = !empty($movie_details['mpaa_rating']) ? $movie_details['mpaa_rating'] : "N/A";
                 $rating = !empty($movie_details['vote_average']) ? $movie_details['vote_average'] : "N/A";
                 $runtime = !empty($movie_details['runtime']) ? $movie_details['runtime'] : "N/A";
@@ -145,7 +145,7 @@
                     $stmt_movie->execute();
                 }
         
-                //Cast/crew stuff
+                //Cast/crew stuff NOTICE ---- I don't think this works rn have to keep working on it.
                 if (!empty($movie_details['cast']) && is_array($movie_details['cast'])) {
                     foreach ($movie_details['cast'] as $cast_member) {
                         $actor_name = $cast_member['name']; 
