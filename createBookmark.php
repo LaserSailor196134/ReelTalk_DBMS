@@ -1,4 +1,3 @@
-<body>
 <?php
     include "config.php";
     include 'accounts/checkloggedin.php';
@@ -40,4 +39,3 @@
     header("Location: social/profile.php?username=$username");
 
 ?>
-</body>
