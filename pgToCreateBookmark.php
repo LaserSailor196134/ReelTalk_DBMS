@@ -17,10 +17,12 @@
         include 'headfoot.php';
         makeHeader();
         $movieID = $_POST['movie_id'];
-        echo("<input type='hidden' name='movie_id' value='$movieID'>");
+        echo("
+        <div class=\"container d-flex justify-content-center align-items-center\" style=\"min-height: 80vh;\">
+            <form method = \"POST\" action = \"createBookmark.php\" id=\"form1\">
+                <input type='hidden' name='movie_id' value='$movieID'>");
+
         ?>
-        <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
-            <form method = "POST" action = "createBookmark.php" id="form1">
                 <div class="row bg-dark rounded-top">
                     <div class="col-5 m-3">
                         <h2 class="text-light fs-4">Status</h2>

@@ -3,7 +3,7 @@
     include 'headfoot.php';
     include 'accounts/checkloggedin.php';
     $loggedIn = isLoggedIn();
-    $movie_id = 43214321;
+    $movie_id = $_POST['movie_id'];
     $findbookmarks = $movies -> prepare("SELECT bookmark.*, account.username FROM ABOUT 
     JOIN bookmark ON ABOUT.ratingID = bookmark.ratingID
     JOIN CREATES ON bookmark.ratingID = CREATES.ratingID
