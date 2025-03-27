@@ -25,10 +25,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     $checkusername -> bind_result($storedpassword);
     $checkusername -> fetch();
-    if(password_verify($password, $storedpassword)) {
-        $deleteuser = $movies -> prepare("DELETE FROM dbuser WHERE username = ?");
-        $deleteuser -> bind_param("s", $username);
-        $deleteuser -> execute();
+    if(password_verify($password, $storedpassword)) { 
+        //deletes bookmarks associated with the username
+        $deleteBookmarks = $movies -> prepare('DELETE FROM bookmark
+        WHERE ratingID IN (
+        SELECT ratingID FROM CREATES WHERE username = ?)');
+        $deleteBookmarks -> bind_param('s', $username);
+        $deleteBookmarks -> execute();
+        $deleteBookmarks -> close();
+        //after the bookmarks deletes the account
         $deleteaccount = $movies -> prepare("DELETE FROM account WHERE username = ?");
         $deleteaccount -> bind_param("s", $username);
         $deleteaccount -> execute();

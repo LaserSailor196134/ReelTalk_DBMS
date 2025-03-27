@@ -1,13 +1,15 @@
-<!-- accountbtn.php
+<!-- headfoot.php
  This file contains functions that echo reusable portions of HTML.
  Utilities here include drop-down menus for accounts and the website logo.
  The makeAccBtn() call has an include_once for checkloggedin.php.
 -->
+
 <?php
 // This function echos the HTML/Bootstrap necessary to produce the account button.
 // The functionality of this button is dependent on whether the user is logged_in.
+// $root_rel provides the location of the root relative to the current folder.
 function makeAccBtn($root_rel = './') {
-    include_once "accounts/checkloggedin.php";
+    include_once ($root_rel . "accounts/checkloggedin.php");
     if(isLoggedIn()) {
         echo '
         <div class="dropdown">
@@ -16,7 +18,7 @@ function makeAccBtn($root_rel = './') {
                 <i class="fa-solid fa-user"></i> ' . ($_SESSION["username"]) . '
             </button>
             <div class="dropdown-menu" aria-labelledby="accDrop">
-                <a class="dropdown-item" href="' . $root_rel . 'social/profile.php?username=' . urlencode($_SESSION['username']) . '">My Profile</a>
+                <a class="dropdown-item" href="' . $root_rel . 'social/profile.php?username=' . urlencode($_SESSION['username']) . '">Profile</a>
                 <a class="dropdown-item" href="' . $root_rel . 'accounts/logout.php">Logout</a>
                 <a class="dropdown-item text-danger" href="' . $root_rel . 'accounts/delete.php">Delete Account</a>
             </div>
@@ -85,5 +87,81 @@ function makeFooter() {
         <a class="btn btn-warning" href="#top">Back to Top</a></p>
     </footer>
     '; // We might have to remove the top button later depending how we implement searches.
+}
+
+// Function used to construct bookmarks for a variety of pages.
+// Felt it was better to place here instead of another page for include reasons.
+function makeBookmark($idb, $user, $film, $date, $status = 'Want to Watch', $desc = 'Plan to Watch!', $rating = 'Unrated', $root_rel = './') {
+    include_once ($root_rel . "accounts/checkloggedin.php");
+    $idd = $user . $idb;
+    $rating = strval($rating);
+
+    if(strcmp($rating, 'Unrated') != 0) {
+        $rating = 'Rated ' . $rating . ' <i class="fa-solid fa-web-awesome"></i>';
+    }
+    
+    // Keep in mind we can modify the styling as needed;
+    echo '
+        <div class="col-5 bg-dark text-light rounded p-3 m-2">
+            <h3 class="fs-5 text-warning">' . $film . ' Bookmark</h3>
+            <p>' . $status . ' - '. $user . ' (' . $date . ')</p>
+            <p>' . $desc . '</p><br>
+            <p class="text-warning">' . $rating . '</p>
+    ';
+    
+    if(isLoggedIn()) {
+        if(strcmp($user, $_SESSION['username']) == 0) {
+            echo '
+            <div class="pe-2" style="float: left;"> <!-- Organization div, apologies for the size. -->
+                <div class="dropdown">
+                    <button class="btn btn-warning dropdown-toggle" type="button" id="' . $idd . '" data-bs-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Edit <i class="fa-solid fa-square-pen"></i>
+                    </button>
+                    <form class="dropdown-menu drop-up p-3" aria-labelledby="' . $idd . '" style="min-width:30vw;">
+                        <div class="form-group">
+                            <p>Rating:</p>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="ratings" id="' . $idd . 'rate1" value="option1">
+                                <label class="form-check-label" for="' . $idd . 'rate1">1</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="ratings" id="' . $idd . 'rate2" value="option2">
+                                <label class="form-check-label" for="' . $idd . 'rate2">2 </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="ratings" id="' . $idd . 'rate3" value="option3">
+                                <label class="form-check-label" for="' . $idd . 'rate3">3 </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="ratings" id="' . $idd . 'rate4" value="option3">
+                                <label class="form-check-label" for="' . $idd . 'rate4">4 </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="ratings" id="' . $idd . 'rate5" value="option3">
+                                <label class="form-check-label" for="' . $idd . 'rate5">5 </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <br><label for="' . $idd . 'Input">Description:</label>
+                            <input class="form-control" type="text" id="' . $idd . 'Input" name="' . $idd . 'Input" value="' . $desc . '"><br>
+                        </div>
+                        <button type="submit" class="btn btn-warning">Submit Changes</button>
+                    </form>
+                </div>
+            </div>
+            <form id="' . $idb . '_D" name="removeBookmark" method="POST" action="' . $root_rel . 'removeBookmark.php">
+                <input type="hidden" name="username" value="' . $user . '">
+                <input type="hidden" name="mediaID" value="' . $idb .'">
+                <button type="submit" class="btn btn-danger text-dark" form="' . $idb . '_D">Delete <i class="fa-solid fa-trash"></i></button>
+                <!-- Adding form id to the above button allows us to use a button object instead of a submit input. -->
+            </form>
+            '; // TODO: Delete the button.
+        } // We might be able to replace this whole edit dropdown with a contenteditable="true" attribute, we'll have to see.
+    }
+
+    echo '
+        </div>
+    ';
 }
 ?>
