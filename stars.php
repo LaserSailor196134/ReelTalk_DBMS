@@ -10,79 +10,127 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://kit.fontawesome.com/63ff890171.js" crossorigin="anonymous"></script>
-        <style>
-            .body-col {
-                background-color: #FFF3CD;
-            }
-        </style>
     </head>
     <body class="bg-secondary" style="font-family: Tahoma">
     <div id="top" class="container-fluid">
         <?php
         include 'headfoot.php';
-        $my_bar = '
-            <input type="text" class="form-control" placeholder="Search cast/crew...">
-        ';
+        
+        $api_key = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlN2RlMmE4YWYxYmRmMzdiY2NhNDI2Y2ZjNTQ4MWFkMyIsIm5iZiI6MTczODg3OTc3Ni41MzksInN1YiI6IjY3YTUzMzIwNTA4OGI5NDU5NzJmZTBhNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.PhOMmKjQYwxCiCfCrD0pFIhNpwC3nB5S1tIxRy3qkS4"; // Replace with your actual TMDB API key
+
+        //Link with db.
+        $conn = new mysqli("localhost", "root", "", "moviedb"); //These should prob be variables for server, username, password and db respectively but whatevs.
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        // properly interacts with url for Michael.
+        $search_query = isset($_GET["query"]) ? htmlspecialchars($_GET["query"]) : "";
+
+        // Search bar html.
+        $my_bar = "
+            <form method='GET' action='stars.php' class='d-flex justify-content-center py-5'>
+                <input type='text' name='query' class='form-control' placeholder='Search people...' value='{$search_query}'>
+                <button type='submit' class='btn btn-light ms-2'>Search</button>
+            </form>
+        ";
+
         makeHeader($my_bar);
+
+        // Check if a search is requested.
+        if (!empty($search_query)) {
+            $api_url = "https://api.themoviedb.org/3/search/person?query=" . urlencode($search_query);
+            
+            // cURL setup.
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $api_url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                "Authorization: Bearer $api_key"
+            ]);
+            // This line disables ssl verification, security issue if launched but needed for testing.
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+            // Execute request and decode JSON response.
+            $response = curl_exec($ch);
+            curl_close($ch);
+            $people = json_decode($response, true);
+
+            // Check if people are found
+            if (!empty($people['results'])) {
+                echo "<div class='container'><div class='row'>";
+                
+                foreach ($people['results'] as $person) {
+                    $name = $person['name'];
+                    $poster = $person['profile_path'] 
+                        ? "https://image.tmdb.org/t/p/w500" . $person['profile_path'] 
+                        : ""; // Placeholder if poster issue. Needs to be added.
+                    $biography = !empty($person['biography']) ? substr($person['biography'], 0, 100) . "..." : "No description available.";
+                    $person_id = !empty($person['id']) ? $person['id'] : "Error ID not found."; 
+
+                    echo "
+                    <div class='col-md-3 mb-4'>
+                        <div class='card'>
+                            <img src='{$poster}' class='card-img-top' alt='{$name}'>
+                            <div class='card-body'>
+                                <form method='POST' action='stars.php'>
+                                    <input type='hidden' name='person_id' value='{$person_id}'>
+                                    <button type='submit' class='card-title'>{$name}</button>
+                                </form>
+                                <p class='card-text'>{$biography}</p>
+                            </div>
+                        </div>
+                    </div>";
+                }
+                echo "</div></div>";
+            } else {
+                echo "<p class='text-center'>No people found for '<strong>{$search_query}</strong>'.</p>"; //If nothing found.
+            }
+        }
+
+        //Reads button click and pushes to db.
+        if (isset($_POST['person_id'])) {
+            $person_id = $_POST['person_id'];
+            
+            $api_url = "https://api.themoviedb.org/3/person/{$person_id}?api_key={$api_key}&language=en-US";
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $api_url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, ["Authorization: Bearer $api_key"]);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); //Same situation should be truncated for security at some point.
+            $response = curl_exec($ch);
+            curl_close($ch);
+
+            $person_details = json_decode($response, true);
+
+            if (!empty($person_details)) {
+                // Get people details
+                $name = $person_details['name'];
+                $biography = !empty($person_details['biography']) ? substr($person_details['biography'], 0, 300) : "No description available."; //Had to cap this to avoid hitting issues with db setup.
+        
+                // Check if person already in db.
+                $stmt = $conn->prepare("SELECT actorID FROM castcrew WHERE actorID = ?");
+                $stmt->bind_param("i", $person_id);
+                $stmt->execute();
+                $stmt->store_result();
+        
+                //Insert data.
+                if ($stmt->num_rows == 0) {
+                    //Cast table.
+                    $stmt_insert_castCrew = $conn->prepare("INSERT INTO castcrew (actorID, name, biography) VALUES (?, ?, ?)");
+                    $stmt_insert_castCrew->bind_param("iss", $person_id, $name, $biography);
+                    $stmt_insert_castCrew->execute();
+                }
+                
+                echo "<p>Person added.</p>";
+            } else {
+                echo "<p>No details found for ID: {$person_id}</p>";
+            }
+        }
+
+        $conn->close();
         ?>
-        <!-- actorID name biography -->
-        <!-- List of films/TV -->
-        <div class="container bg-dark rounded mb-5">
-            <div class="row justify-content-center pt-5 mt-5">
-                <div class="col-4 text-center">
-                    <h1 class="fs-2 bg-warning rounded p-2">Timothee Chalameet</h1>
-                    <p class="text-secondary">[Photo Placeholder]</p> <!-- Remove if photos unavailable -->
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-8 rounded-top body-col px-3">
-                    <h2 class="text-center fs-4 pt-3">Biography</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur aliquam ultricies varius. In dolor arcu, 
-                        fermentum sollicitudin risus porttitor, euismod tempus mi. Ut ac velit nec lectus cursus sollicitudin.
-                        Etiam porta sollicitudin neque at congue. Phasellus dictum augue eu bibendum ullamcorper. Aenean ut metus
-                        imperdiet, porta ante in, porta quam. Phasellus placerat felis nunc, ut accumsan nunc porta eu.<br>
-                        Nulla consectetur et velit vel placerat. Donec ultrices ante condimentum sapien fringilla egestas.
-                        Pellentesque at viverra risus. Nullam a metus eget nisi eleifend pretium ut ut erat. In sollicitudin
-                        hendrerit porttitor. Aliquam felis tellus, tincidunt a odio eu, viverra cursus mi. Vivamus vehicula nibh
-                        ante, sit amet congue lacus cursus eget. Morbi fermentum, ligula consectetur blandit volutpat, erat nisl
-                        gravida orci, non egestas enim velit eget neque.
-                    </p>
-                </div>
-            </div>
-            <div class="row justify-content-center pb-5">
-                <div class="col-8 body-col rounded-bottom">
-                    <h2 class="fs-4 py-3 text-center">Filmography</h2>
-                    <table class="table table-striped table-warning">
-                        <thead>
-                            <tr>
-                                <th>Title</th>
-                                <th>Role</th>
-                                <th>Media Type</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <!-- These could be links to Star pages in the actual implementation(?) -->
-                                <td>Loonie Toons</td>
-                                <td>Director</td>
-                                <td>TV Show</td>
-                            </tr>
-                            <tr>
-                                <td>A Complete Unknown</td>
-                                <td>Actor</td>
-                                <td>Film</td>
-                            </tr>
-                            <tr>
-                                <td>Wonka</td>
-                                <td>Actor/Producer</td>
-                                <td>Film</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <?php makeFooter(); ?>
     </div>
     </body>
 </html>
