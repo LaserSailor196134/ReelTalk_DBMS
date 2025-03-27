@@ -150,9 +150,11 @@ function makeBookmark($idb, $user, $film, $date, $status = 'Want to Watch', $des
                     </form>
                 </div>
             </div>
-            <form name="removeBookmark" method="POST" action="' . $root_rel . 'removeBookmark.php">
+            <form id="' . $idb . '_D" name="removeBookmark" method="POST" action="' . $root_rel . 'removeBookmark.php">
                 <input type="hidden" name="username" value="' . $user . '">
-                <button class="btn btn-danger text-dark" name="mediaID" value="' . $idb . '">Delete <i class="fa-solid fa-trash"></i></button>
+                <input type="hidden" name="mediaID" value="' . $idb .'">
+                <button type="submit" class="btn btn-danger text-dark" form="' . $idb . '_D">Delete <i class="fa-solid fa-trash"></i></button>
+                <!-- Adding form id to the above button allows us to use a button object instead of a submit input. -->
             </form>
             '; // TODO: Delete the button.
         } // We might be able to replace this whole edit dropdown with a contenteditable="true" attribute, we'll have to see.
