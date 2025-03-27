@@ -19,10 +19,7 @@
         $api_key = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlN2RlMmE4YWYxYmRmMzdiY2NhNDI2Y2ZjNTQ4MWFkMyIsIm5iZiI6MTczODg3OTc3Ni41MzksInN1YiI6IjY3YTUzMzIwNTA4OGI5NDU5NzJmZTBhNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.PhOMmKjQYwxCiCfCrD0pFIhNpwC3nB5S1tIxRy3qkS4"; // Replace with your actual TMDB API key
 
         //Link with db.
-        $conn = new mysqli("localhost", "root", "", "moviedb"); //These should prob be variables for server, username, password and db respectively but whatevs.
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
+        include "config.php";
 
         // properly interacts with url for Michael.
         $search_query = isset($_GET["query"]) ? htmlspecialchars($_GET["query"]) : "";
@@ -74,7 +71,7 @@
                         <div class='card'>
                             <img src='{$poster}' class='card-img-top' alt='{$name}'>
                             <div class='card-body'>
-                                <form method='POST' action='stars.php'>
+                                <form method='POST' action='castcrew.php'>
                                     <input type='hidden' name='person_id' value='{$person_id}'>
                                     <button type='submit' class='card-title'>{$name}</button>
                                 </form>
@@ -116,7 +113,7 @@
                         : ""; // Placeholder if poster issue. Needs to be added.
 
                 // Check if person already in db.
-                $stmt = $conn->prepare("SELECT actorID FROM castcrew WHERE actorID = ?");
+                $stmt = $movies->prepare("SELECT actorID FROM castcrew WHERE actorID = ?");
                 $stmt->bind_param("i", $person_id);
                 $stmt->execute();
                 $stmt->store_result();
@@ -124,7 +121,7 @@
                 //Insert data.
                 if ($stmt->num_rows == 0) {
                     //Cast table.
-                    $stmt_insert_castCrew = $conn->prepare("INSERT INTO castcrew (actorID, name, biography) VALUES (?, ?, ?)");
+                    $stmt_insert_castCrew = $movies->prepare("INSERT INTO castcrew (actorID, name, biography) VALUES (?, ?, ?)");
                     $stmt_insert_castCrew->bind_param("iss", $person_id, $name, $biography);
                     $stmt_insert_castCrew->execute();
                 }
@@ -198,7 +195,7 @@
             }
         }
 
-        $conn->close();
+        $movies->close();
         ?>
     </div>
     </body>
