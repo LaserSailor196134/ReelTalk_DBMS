@@ -192,8 +192,14 @@
                                 <p>{$overview}</p>
                                 <p>{$rating} /10</p>
                                 <!-- Bookmarks still need to be done -->
-                                <a href='' class='btn btn-light p-1 my-2'>Add Bookmark</a> 
-                                <a href='' class='btn btn-light p-1 my-2 ms-2'>See Bookmarks</a>
+                                <form method='POST' action='pgToCreateBookmark.php'>
+                        <input type='hidden' name='movie_id' value=$movie_id>
+                        <input class=\"btn btn-light p-1 my-2\" type='submit' value='Add Bookmark'>
+                    </form>
+                    <form method='POST' action='getbookmarkformovie.php'>
+                        <input type='hidden' name='movie_id' value=$movie_id>
+                        <input class=\"btn btn-light p-1 my-2\" type='submit' value='See Bookmarks'>
+                    </form>
                             </div>
                             <!-- Cast/Crew -->
                             <div class='col-5 scrollable_table'>
