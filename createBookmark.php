@@ -11,7 +11,13 @@
     $review = $_POST['review'];
     $rating = $_POST['rating'];
 
-    $isAlreadyReviewed = $movies -> prepare('');//create a query that checks for duplicate reviews on the same movie from the same user
+    $isAlreadyReviewed = $movies -> prepare('SELECT * FROM ABOUT
+    JOIN bookmark ON bookmark.ratingID = ABOUT.ratingID
+    JOIN CREATES ON bookmark.ratingID = CREATES.ratingID
+    WHERE mediaID = ? AND username = ?');//create a query that checks for duplicate reviews on the same movie from the same user
+    $isAlreadyReviewed -> bind_param('is', $mediaID, $username);
+    $isAlreadyReviewed -> execute();
+    $isAlreadyReviewed -> store_result();
     
     if($isAlreadyReviewed -> num_rows() == 0) {//if not already reviewed
         $saveBookmark = $movies -> prepare("INSERT INTO bookmark(watchStatus,numberRating,description) VALUES (?,?,?)");
