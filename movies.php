@@ -53,13 +53,13 @@
                     <p>Review Score: 3.7 / 5</p>
                     <p>Availability: Amazon Prime, Netflix, Disney+</p>
                     <!-- Change these to let user place bookmark on page -->
-<!--michael-->      <?php $movie_id = 43214321;
+                    <?php $movie_id = 43214321;
                     echo("<form method='POST' action='pgToCreateBookmark.php'>
                         <input type='hidden' name='movie_id' value=$movie_id>
                         <input class=\"btn btn-light p-1 my-2\" type='submit' value='Add Bookmark'>
                     </form>");
                     ?>
-                    <a href="" class="btn btn-light p-1 my-2 ms-2">See Bookmarks</a>
+                    <a href="getbookmarkformovie.php" class="btn btn-light p-1 my-2 ms-2">See Bookmarks</a>
                 </div>
                 <!-- Cast/Crew -->
                 <div class="col-5 scrollable-table">

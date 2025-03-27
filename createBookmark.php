@@ -28,7 +28,7 @@
     $saveBookmarkA -> bind_param('ii',$bookmarkID,$mediaID);
     $saveBookmarkA -> execute();
 
-    echo("Successfully Saved Review")
+    header("Location: home.php");
 
 ?>
 </body>

@@ -3,20 +3,25 @@
 include "./accounts/checkloggedin.php";
 if(!isLoggedIn()) {
     header("Location: ./home.php");
+    
     die();
 } 
+include "config.php";
 $username = $_POST['username'];
 $mediaID = $_POST['mediaID'];
 if($_SESSION['username'] == $username) {//if the correct user is deleting the bookmark
-    $deleteBookmark = $movies -> prepare('DELETE FROM bookmark WHERE username = ? AND mediaID = ?');
+    $deleteBookmark = $movies -> prepare('DELETE bookmark FROM bookmark 
+    JOIN ABOUT ON ABOUT.ratingID = bookmark.ratingID
+    JOIN CREATES ON CREATES.ratingID = bookmark.ratingID
+    WHERE CREATES.username = ? AND ABOUT.mediaID = ?');
     $deleteBookmark -> bind_param('si', $username, $mediaID);
     $deleteBookmark -> execute();
     //the rest should cascade and delete automatically
-    header("Location: ../home.php");//this probably should redirect somewhere better
+    header("Location: home.php");//this probably should redirect somewhere better
 } else {
     echo('<script>
     alert("how did you even do this?")
-    window.location.assign("./home.php)
+    window.location.assign("home.php")
     </script>');
 }
 
