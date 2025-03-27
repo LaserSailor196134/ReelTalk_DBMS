@@ -1,10 +1,14 @@
 Kai's devlog.
 
 - ssl verification was circumvented for cURL request in movies.php.
-- api request works properly, still needs to be made to request the extra info we want. 
-- html needs to be modified to match site.
-- cast and crew search needs to be done. Should be easy once I finish movie, basically the same.
+- api request works properly, still needs to be made to request the extra info we want. - DONE
+- html needs to be modified to match site. - DONE
+- cast and crew search needs to be done. Should be easy once I finish movie, basically the same. - DONE
 - tv shows may take longer, since they kinda different and may need modifications on frontend. Problem for later.
 - bookmark also needs doing, but that can wait till other tasks are done, and will need to coordinate with users.
-- url modification functionality added for Michael
-- info then needs to be placed in moviesdb.
+- url modification functionality added for Michael - DONE
+- info then needs to be placed in moviesdb. - DONE
+- crossfunctionality for api pull still needs to be done, there is code for it in movies.php but it does not work.
+- truncated character pull to not cause errors with VARCHAR
+- frontend still needs to be cleaned up visually.
+- frontend page opening with info needs to be implemented.
