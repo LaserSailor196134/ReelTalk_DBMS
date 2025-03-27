@@ -169,7 +169,7 @@
         ";
 
         //this loads all of the users's bookmarks, add 
-        $loadBookmarks = $movies -> prepare('SELECT bookmark.ratingID, bookmark.watchStatus, bookmark.numberRating, bookmark.description, bookmark.dateCreated, media.name FROM CREATES
+        $loadBookmarks = $movies -> prepare('SELECT media.mediaID, bookmark.watchStatus, bookmark.numberRating, bookmark.description, bookmark.dateCreated, media.name FROM CREATES
         JOIN bookmark ON CREATES.ratingID = bookmark.ratingID
         JOIN ABOUT ON bookmark.ratingID = ABOUT.ratingID
         JOIN media ON ABOUT.mediaID = media.mediaID

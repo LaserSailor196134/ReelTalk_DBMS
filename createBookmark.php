@@ -37,7 +37,7 @@
         $saveBookmarkA -> bind_param('ii',$bookmarkID,$mediaID);
         $saveBookmarkA -> execute();
     }
-    header("Location: social/profile.php?username = $username");
+    header("Location: social/profile.php?username=$username");
 
 ?>
 </body>
