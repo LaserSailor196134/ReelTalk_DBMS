@@ -64,6 +64,7 @@
                         : ""; // Placeholder if poster issue. Needs to be added.
                     $biography = !empty($person['biography']) ? substr($person['biography'], 0, 100) . "..." : "No description available.";
                     $person_id = !empty($person['id']) ? $person['id'] : "Error ID not found."; 
+                    $birthday = !empty($birthday['birthday']) ? $birthday['birthday'] : "N/A";
 
                     echo "
                     <div class='col-md-3 mb-4'>
@@ -105,7 +106,12 @@
                 // Get people details
                 $name = $person_details['name'];
                 $biography = !empty($person_details['biography']) ? substr($person_details['biography'], 0, 300) : "No description available."; //Had to cap this to avoid hitting issues with db setup.
-        
+                $person_id = !empty($person['id']) ? $person['id'] : "Error ID not found."; 
+                $birthday = !empty($birthday['birthday']) ? $birthday['birthday'] : "N/A";
+                $poster = $person_details['profile_path'] 
+                        ? "https://image.tmdb.org/t/p/w500" . $person_details['profile_path'] 
+                        : ""; // Placeholder if poster issue. Needs to be added.
+
                 // Check if person already in db.
                 $stmt = $movies->prepare("SELECT actorID FROM castcrew WHERE actorID = ?");
                 $stmt->bind_param("i", $person_id);
@@ -120,7 +126,70 @@
                     $stmt_insert_castCrew->execute();
                 }
                 
-                echo "<p>Person added.</p>";
+                //Post click screen.
+                echo "
+                    <div class='container bg-dark rounded mb-5'>
+                        <!-- Film title -->
+                        <div class='row justify-content-center py-5 mt-5'>
+                            <div class='col-6 bg-warning rounded text-center'>
+                                <!-- Main film information -->
+                                <h1 class='fs-2 pt-2'>{$name}</h1>
+                                <img src='{$poster}' class='card-img-top' alt='{$name}'>
+                                <p class='text-secondary'>#{$person_id}</p>
+                            </div>
+                        </div>
+                        <div class='row justify-content-center pb-5'>
+                            <!-- Film information -->
+                            <div class='col-5 bg-warning rounded mx-2'>
+                                <p class='pt-2'>Birthday: {$birthday}</p>
+                                <p>{$biography}</p>
+                                <!-- Bookmarks still need to be done -->
+                                <a href='' class='btn btn-light p-1 my-2'>Add Bookmark</a> 
+                                <a href='' class='btn btn-light p-1 my-2 ms-2'>See Bookmarks</a>
+                            </div>
+                            <!-- Cast/Crew -->
+                            <div class='col-5 scrollable_table'>
+                                <table class='table table-striped table-warning'>
+                                    <thead class=''>
+                                        <tr>
+                                            <th>Crew Member</th>
+                                            <th>Role</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <!-- These could be links to Star pages in the actual implementation(?) -->
+                                            <td>Sean Dingle</td>
+                                            <td>Director</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tom Dingle</td>
+                                            <td>Assistant Director</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Baddie McAnderson</td>
+                                            <td>Actor/Producer</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jimmy Provalone</td>
+                                            <td>Actor</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Sarah Provalone</td>
+                                            <td>Actor</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Echo Rodriguez</td>
+                                            <td>Actor</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Albus Dumbledore.</td>
+                                            <td>Professor</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>";
             } else {
                 echo "<p>No details found for ID: {$person_id}</p>";
             }

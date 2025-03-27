@@ -171,7 +171,73 @@
                     }
                 }
                 
-                echo "<p>Movie added.</p>";
+                //Post click screen
+                echo "
+                    <div class='container bg-dark rounded mb-5'>
+                        <!-- Film title -->
+                        <div class='row justify-content-center py-5 mt-5'>
+                            <div class='col-6 bg-warning rounded text-center'>
+                                <!-- Main film information -->
+                                <h1 class='fs-2 pt-2'>{$title}</h1>
+                                <img src='{$poster_path}' class='card-img-top' alt='{$title}'>
+                                <p class='text-secondary'>#{$movie_id}</p>
+                            </div>
+                        </div>
+                        <div class='row justify-content-center pb-5'>
+                            <!-- Film information -->
+                            <div class='col-5 bg-warning rounded mx-2'>
+                                <p class='pt-2'>Rating: {$mpa_rating}</p>
+                                <p>Runtime: {$runtime}</p>
+                                <p>Release date: {$release_date}</p>
+                                <p>{$overview}</p>
+                                <p>{$rating} /10</p>
+                                <!-- Bookmarks still need to be done -->
+                                <a href='' class='btn btn-light p-1 my-2'>Add Bookmark</a> 
+                                <a href='' class='btn btn-light p-1 my-2 ms-2'>See Bookmarks</a>
+                            </div>
+                            <!-- Cast/Crew -->
+                            <div class='col-5 scrollable_table'>
+                                <table class='table table-striped table-warning'>
+                                    <thead class=''>
+                                        <tr>
+                                            <th>Crew Member</th>
+                                            <th>Role</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <!-- These could be links to Star pages in the actual implementation(?) -->
+                                            <td>Sean Dingle</td>
+                                            <td>Director</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tom Dingle</td>
+                                            <td>Assistant Director</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Baddie McAnderson</td>
+                                            <td>Actor/Producer</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jimmy Provalone</td>
+                                            <td>Actor</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Sarah Provalone</td>
+                                            <td>Actor</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Echo Rodriguez</td>
+                                            <td>Actor</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Albus Dumbledore.</td>
+                                            <td>Professor</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>";
             } else {
                 echo "<p>No movie details found for ID: {$movie_id}</p>";
             }

@@ -2,6 +2,12 @@
  This file represents the page for registering user accounts. 
  Data entered into the form by the user is processed by regpost.php.
  -->
+<?php
+include 'checkloggedin.php';
+if(isLoggedIn()) {
+    header("Location: ../home.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
