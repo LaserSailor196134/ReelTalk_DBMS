@@ -115,7 +115,7 @@ function makeBookmark($idb, $user, $film, $date, $status = 'Want to Watch', $des
             <div class="pe-2" style="float: left;"> <!-- Organization div, apologies for the size. -->
                 <div class="dropdown">
                     <button class="btn btn-warning dropdown-toggle" type="button" id="' . $idd . '" data-bs-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
+                        aria-haspopup="true" aria-expanded="false" disabled>
                         Edit <i class="fa-solid fa-square-pen"></i>
                     </button>
                     <form class="dropdown-menu drop-up p-3" aria-labelledby="' . $idd . '" style="min-width:30vw;">

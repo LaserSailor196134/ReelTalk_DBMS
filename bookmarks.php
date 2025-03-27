@@ -35,7 +35,7 @@
         $findReviews -> bind_param('s',$media);
         $findReviews -> execute();
         $findReviews -> store_result();
-        if($findReviews -> num_rows == 0) {
+        if($findReviews -> num_rows != 0) {
             $findReviews -> bind_result($watchStatus, $numberRating, $dateCreated, $description, $username, $mediaName);
             while($findReviews -> fetch()){ //while get next result returns values
                 makeBookmark($media, $username, $mediaName, $dateCreated, $watchStatus, $description, $numberRating); // Lot of planters!
