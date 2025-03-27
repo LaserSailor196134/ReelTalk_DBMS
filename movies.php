@@ -181,7 +181,7 @@
                         <div class='row justify-content-center py-5 mt-5'>
                             <div class='col-6 bg-warning rounded text-center'>
                                 <!-- Main film information -->
-                                <h1 class='fs-2 pt-2'>Nosferatu</h1>
+                                <h1 class='fs-2 pt-2'>{$title}</h1>
                                 <img src='{$poster_path}' class='card-img-top' alt='{$title}'>
                                 <p class='text-secondary'>#{$movie_id}</p>
                             </div>
