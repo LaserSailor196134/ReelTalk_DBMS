@@ -1,8 +1,8 @@
 <?php 
 //removes a bookmark for a user if the user trying to remove the bookmark is the creator of the bookmark
-include "../accounts/checkloggedin.php";
+include "./accounts/checkloggedin.php";
 if(!isLoggedIn()) {
-    header("Location: ../home.php");
+    header("Location: ./home.php");
     die();
 } 
 $username = $_POST['username'];
@@ -16,7 +16,7 @@ if($_SESSION['username'] == $username) {//if the correct user is deleting the bo
 } else {
     echo('<script>
     alert("how did you even do this?")
-    window.location.assign("../home.php)
+    window.location.assign("./home.php)
     </script>');
 }
 

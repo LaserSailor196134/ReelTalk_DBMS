@@ -150,7 +150,7 @@ function makeBookmark($idb, $user, $film, $date, $status = 'Want to Watch', $des
                     </form>
                 </div>
             </div>
-            <form name="removeBookmark" method="POST" action="removeBookmark.php">
+            <form name="removeBookmark" method="POST" action="' . $root_rel . 'removeBookmark.php">
                 <input type="hidden" name="username" value="' . $user . '">
                 <button class="btn btn-danger text-dark" name="mediaID" value="' . $idb . '">Delete <i class="fa-solid fa-trash"></i></button>
             </form>
