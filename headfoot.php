@@ -91,9 +91,9 @@ function makeFooter() {
 
 // Function used to construct bookmarks for a variety of pages.
 // Felt it was better to place here instead of another page for include reasons.
-function makeBookmark($user, $film, $date, $status = 'Want to Watch', $desc = 'Plan to Watch!', $rating = 'Unrated', $root_rel = './') {
+function makeBookmark($idb, $user, $film, $date, $status = 'Want to Watch', $desc = 'Plan to Watch!', $rating = 'Unrated', $root_rel = './') {
     include_once ($root_rel . "accounts/checkloggedin.php");
-    $idd = $user . $date; // IDs for the description and inbox box.
+    $idd = $user . $idb;
     $rating = strval($rating);
 
     if(strcmp($rating, 'Unrated') != 0) {
@@ -112,44 +112,49 @@ function makeBookmark($user, $film, $date, $status = 'Want to Watch', $desc = 'P
     if(isLoggedIn()) {
         if(strcmp($user, $_SESSION['username']) == 0) {
             echo '
-            <div class="dropdown">
-                <button class="btn btn-warning dropdown-toggle" type="button" id="' . $idd . '" data-bs-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    Edit <i class="fa-solid fa-square-pen"></i>
-                </button>
-                <form class="dropdown-menu drop-up p-3" aria-labelledby="' . $idd . '" style="min-width:30vw">
-                    <div class="form-group">
-                        <p>Rating:</p>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="' . $idd . 'rate1" value="option1">
-                            <label class="form-check-label" for="' . $idd . 'rate1">1</label>
+            <div class="pe-2" style="float: left;"> <!-- Organization div, apologies for the size. -->
+                <div class="dropdown">
+                    <button class="btn btn-warning dropdown-toggle" type="button" id="' . $idd . '" data-bs-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Edit <i class="fa-solid fa-square-pen"></i>
+                    </button>
+                    <form class="dropdown-menu drop-up p-3" aria-labelledby="' . $idd . '" style="min-width:30vw;">
+                        <div class="form-group">
+                            <p>Rating:</p>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="ratings" id="' . $idd . 'rate1" value="option1">
+                                <label class="form-check-label" for="' . $idd . 'rate1">1</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="ratings" id="' . $idd . 'rate2" value="option2">
+                                <label class="form-check-label" for="' . $idd . 'rate2">2 </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="ratings" id="' . $idd . 'rate3" value="option3">
+                                <label class="form-check-label" for="' . $idd . 'rate3">3 </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="ratings" id="' . $idd . 'rate4" value="option3">
+                                <label class="form-check-label" for="' . $idd . 'rate4">4 </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="ratings" id="' . $idd . 'rate5" value="option3">
+                                <label class="form-check-label" for="' . $idd . 'rate5">5 </label>
+                            </div>
                         </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="' . $idd . 'rate2" value="option2">
-                            <label class="form-check-label" for="' . $idd . 'rate2">2 </label>
+                        <div class="form-group">
+                            <br><label for="' . $idd . 'Input">Description:</label>
+                            <input class="form-control" type="text" id="' . $idd . 'Input" name="' . $idd . 'Input" value="' . $desc . '"><br>
                         </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="' . $idd . 'rate3" value="option3">
-                            <label class="form-check-label" for="' . $idd . 'rate3">3 </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="' . $idd . 'rate4" value="option3">
-                            <label class="form-check-label" for="' . $idd . 'rate4">4 </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="' . $idd . 'rate5" value="option3">
-                            <label class="form-check-label" for="' . $idd . 'rate5">5 </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <br><label for="' . $idd . 'Input">Description:</label>
-                        <input class="form-control" type="text" id="' . $idd . 'Input" name="' . $idd . 'Input" value="' . $desc . '"><br>
-                    </div>
-                    <button type="submit" class="btn btn-warning">Submit Changes</button>
-                </form>
-                <button class="btn btn-danger text-dark">Delete <i class="fa-solid fa-trash"></i></button>
+                        <button type="submit" class="btn btn-warning">Submit Changes</button>
+                    </form>
+                </div>
             </div>
-            ';
+            <form name="removeBookmark" method="POST" action="removeBookmark.php">
+                <input type="hidden" name="username" value="' . $user . '">
+                <button class="btn btn-danger text-dark" name="mediaID" value="' . $idb . '">Delete <i class="fa-solid fa-trash"></i></button>
+            </form>
+            '; // TODO: Delete the button.
         } // We might be able to replace this whole edit dropdown with a contenteditable="true" attribute, we'll have to see.
     }
 

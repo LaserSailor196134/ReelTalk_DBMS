@@ -62,9 +62,8 @@
         ";
         
         // Adding follow/unfollow button to profiles.
-        // $viewer is the current page viewer.
-        $viewer = $_SESSION['username'];
-        if(isLoggedIn() && $viewer != $user) {
+        if(isLoggedIn() &&  $_SESSION['username'] != $user) {
+            $viewer = $_SESSION['username']; // $viewer is the current page viewer. Useful for echo. 
             $checkFriend = $movies -> prepare('SELECT * FROM FRIENDS_WITH WHERE username1 = ? AND username2 = ?');
             $checkFriend -> bind_param('ss', $viewer, $user);
             $checkFriend -> execute();
@@ -96,7 +95,7 @@
         <div class=\"row justify-content-center\">
             <div class=\"col-6 bg-dark rounded-top p-3 mt-2\">
                 <p class=\"text-white\">Description:<br>
-                Greetings! I'm movieguy. This is a placeholder biography.</p>
+                Greetings! I love movies! This is a placeholder biography in case we implement the feature.</p>
             </div>
         </div>
         ";
@@ -170,7 +169,7 @@
         ";
 
         //this loads all of the users's bookmarks, add 
-        $loadBookmarks = $movies -> prepare('SELECT bookmark.watchStatus, bookmark.numberRating, bookmark.description, bookmark.dateCreated, media.name FROM CREATES
+        $loadBookmarks = $movies -> prepare('SELECT bookmark.ratingID, bookmark.watchStatus, bookmark.numberRating, bookmark.description, bookmark.dateCreated, media.name FROM CREATES
         JOIN bookmark ON CREATES.ratingID = bookmark.ratingID
         JOIN ABOUT ON bookmark.ratingID = ABOUT.ratingID
         JOIN media ON ABOUT.mediaID = media.mediaID
@@ -187,9 +186,9 @@
         <div class=\"row justify-content-center align-items-center\" style=\"min-height: 20vh\">
         ";
         if($loadBookmarks -> num_rows > 0) {
-            $loadBookmarks -> bind_result($watchStatus, $numberRating, $description, $dateCreated, $movie);
+            $loadBookmarks -> bind_result($ratingID, $watchStatus, $numberRating, $description, $dateCreated, $movie);
             while($loadBookmarks -> fetch()) {
-                makeBookmark($user, $movie, $dateCreated, $watchStatus, $description, $numberRating, '../');
+                makeBookmark($ratingID, $user, $movie, $dateCreated, $watchStatus, $description, $numberRating, '../');
             }
         } else {
             // makeBookmark($user, 'Nosferatu', '2025', root_rel : '../');
