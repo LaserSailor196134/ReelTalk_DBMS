@@ -27,26 +27,28 @@
         ?>
         <!-- actorID name biography -->
         <!-- List of films/TV -->
+        <?php $actor_id = $_POST['person_id'];
+        include "config.php";
+        $getActorInfo = $movies -> prepare('SELECT name, biography FROM castCrew
+        WHERE actorID = ?');
+        $getActorInfo -> bind_param('i', $actor_id);
+        $getActorInfo -> execute();
+        $getActorInfo -> bind_result($name, $bio);
+        $getActorInfo -> fetch();
+        echo('
         <div class="container bg-dark rounded mb-5">
             <div class="row justify-content-center pt-5 mt-5">
                 <div class="col-4 text-center">
-                    <h1 class="fs-2 bg-warning rounded p-2">Timothee Chalameet</h1>
+                    <h1 class="fs-2 bg-warning rounded p-2">' . $name . '</h1>
                     <p class="text-secondary">[Photo Placeholder]</p> <!-- Remove if photos unavailable -->
                 </div>
             </div>
             <div class="row justify-content-center">
                 <div class="col-8 rounded-top body-col px-3">
                     <h2 class="text-center fs-4 pt-3">Biography</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur aliquam ultricies varius. In dolor arcu, 
-                        fermentum sollicitudin risus porttitor, euismod tempus mi. Ut ac velit nec lectus cursus sollicitudin.
-                        Etiam porta sollicitudin neque at congue. Phasellus dictum augue eu bibendum ullamcorper. Aenean ut metus
-                        imperdiet, porta ante in, porta quam. Phasellus placerat felis nunc, ut accumsan nunc porta eu.<br>
-                        Nulla consectetur et velit vel placerat. Donec ultrices ante condimentum sapien fringilla egestas.
-                        Pellentesque at viverra risus. Nullam a metus eget nisi eleifend pretium ut ut erat. In sollicitudin
-                        hendrerit porttitor. Aliquam felis tellus, tincidunt a odio eu, viverra cursus mi. Vivamus vehicula nibh
-                        ante, sit amet congue lacus cursus eget. Morbi fermentum, ligula consectetur blandit volutpat, erat nisl
-                        gravida orci, non egestas enim velit eget neque.
-                    </p>
+                    <p>' . $bio . '
+                    </p>');
+                    ?>
                 </div>
             </div>
             <div class="row justify-content-center pb-5">

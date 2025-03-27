@@ -29,10 +29,7 @@
         $api_key = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlN2RlMmE4YWYxYmRmMzdiY2NhNDI2Y2ZjNTQ4MWFkMyIsIm5iZiI6MTczODg3OTc3Ni41MzksInN1YiI6IjY3YTUzMzIwNTA4OGI5NDU5NzJmZTBhNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.PhOMmKjQYwxCiCfCrD0pFIhNpwC3nB5S1tIxRy3qkS4"; // Replace with your actual TMDB API key
 
         //Link with db.
-        $conn = new mysqli("localhost", "root", "", "moviedb"); //These should prob be variables for server, username, password and db respectively but whatevs.
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
+        include "config.php";
 
         // properly interacts with url for Michael.
         $search_query = isset($_GET["query"]) ? htmlspecialchars($_GET["query"]) : "";
@@ -64,13 +61,13 @@
             // Execute request and decode JSON response.
             $response = curl_exec($ch);
             curl_close($ch);
-            $movies = json_decode($response, true);
+            $moviesList = json_decode($response, true);
 
             // Check if movies are found
-            if (!empty($movies['results'])) {
+            if (!empty($moviesList['results'])) {
                 echo "<div class='container'><div class='row'>";
                 
-                foreach ($movies['results'] as $movie) {
+                foreach ($moviesList['results'] as $movie) {
                     $title = $movie['title'];
                     $poster = $movie['poster_path'] 
                         ? "https://image.tmdb.org/t/p/w500" . $movie['poster_path'] 
@@ -84,7 +81,7 @@
                         <div class='card'>
                             <img src='{$poster}' class='card-img-top' alt='{$title}'>
                             <div class='card-body'>
-                                <form method='POST' action='movies.php'>
+                                <form method='POST' action='filmshow.php'> 
                                     <input type='hidden' name='movie_id' value='{$movie_id}'>
                                     <button type='submit' class='card-title'>{$title}</button>
                                 </form>
@@ -127,7 +124,7 @@
                 $runtime = !empty($movie_details['runtime']) ? $movie_details['runtime'] : "N/A";
         
                 // Check if movie already in db.
-                $stmt = $conn->prepare("SELECT mediaID FROM media WHERE mediaID = ?");
+                $stmt = $movies->prepare("SELECT mediaID FROM media WHERE mediaID = ?");
                 $stmt->bind_param("i", $movie_id);
                 $stmt->execute();
                 $stmt->store_result();
@@ -135,12 +132,12 @@
                 //Insert data.
                 if ($stmt->num_rows == 0) {
                     //Media table.
-                    $stmt_insert_media = $conn->prepare("INSERT INTO media (mediaID, name, description, MPARating) VALUES (?, ?, ?, ?)");
+                    $stmt_insert_media = $movies->prepare("INSERT INTO media (mediaID, name, description, MPARating) VALUES (?, ?, ?, ?)");
                     $stmt_insert_media->bind_param("isss", $movie_id, $title, $overview, $mpa_rating);
                     $stmt_insert_media->execute();
                     
                     //Movie Table.
-                    $stmt_movie = $conn->prepare("INSERT INTO movie (mediaID, length) VALUES (?, ?)");
+                    $stmt_movie = $movies->prepare("INSERT INTO movie (mediaID, length) VALUES (?, ?)");
                     $stmt_movie->bind_param("ii", $movie_id, $runtime);
                     $stmt_movie->execute();
                 }
@@ -151,14 +148,14 @@
                         $actor_name = $cast_member['name']; 
             
                         // Check if cast already in db.
-                        $stmt_cast = $conn->prepare("SELECT actorID FROM castCrew WHERE name = ?");
+                        $stmt_cast = $movies->prepare("SELECT actorID FROM castCrew WHERE name = ?");
                         $stmt_cast->bind_param("s", $actor_name);
                         $stmt_cast->execute();
                         $stmt_cast->store_result();
             
                         //Insert data
                         if ($stmt_cast->num_rows == 0) {
-                            $stmt_insert_cast = $conn->prepare("INSERT INTO castCrew (actorID, name, biography) VALUES (NULL, ?, ?)");
+                            $stmt_insert_cast = $movies->prepare("INSERT INTO castCrew (actorID, name, biography) VALUES (NULL, ?, ?)");
                             $stmt_insert_cast->bind_param("ss", $actor_name, $cast_member['biography']);
                             $stmt_insert_cast->execute();
                             $actor_id = $stmt_insert_cast->insert_id;
@@ -168,7 +165,7 @@
                         }
             
                         //Contributed link stuff.
-                        $stmt_contributed = $conn->prepare("INSERT INTO CONTRIBUTED (mediaID, actorID, role) VALUES (?, ?, ?)");
+                        $stmt_contributed = $movies->prepare("INSERT INTO CONTRIBUTED (mediaID, actorID, role) VALUES (?, ?, ?)");
                         $stmt_contributed->bind_param("iis", $movie_id, $actor_id, $cast_member['role']);
                         $stmt_contributed->execute();
                     }
@@ -263,7 +260,7 @@
             -->
         </div>
         <?php
-        $conn->close();
+        $movies->close();
 
         makeFooter();
         ?>
