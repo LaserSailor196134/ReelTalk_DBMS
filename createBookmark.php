@@ -2,6 +2,7 @@
     include "config.php";
     include 'accounts/checkloggedin.php';
     if(!isLoggedIn()) {
+        header("Location: home.php");
         die();
     } 
     $username = $_SESSION['username'];
