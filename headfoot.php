@@ -46,8 +46,8 @@ function makeAccBtn($root_rel = './') {
 function makeHeader($search_bar = '<br>', $root_rel = './') {
     echo '
     <header class="row bg-dark py-1 px-3 justify-content-center align-items-center">
-        <div class="bg-warning rounded text-center col-2 p-2">
-            <a href="' . $root_rel . 'home.php" class="link-body-emphasis link-underline-opacity-0 fs-4">ReelTalk</a> <!-- Insert logo here -->
+        <div class="col-2 p-2">
+            <a href="' . $root_rel . 'home.php" class="btn btn-warning fs-4" style="width: 100%;">ReelTalk</a> <!-- Insert logo here -->
         </div>
         <div class="col-4 mx-auto">
     ';

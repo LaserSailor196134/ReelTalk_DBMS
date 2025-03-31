@@ -1,4 +1,2 @@
-- Prevent people who are not logged in from adding bookmarks
-- Turn logo text into button to make hit box larger
 - Host the site?
-- move sensitive data including API keys and database account data to environment variables in separate file which should be ignored by .gitignore
+- Move sensitive data including API keys and database account data to environment variables in separate file which should be ignored by .gitignore
