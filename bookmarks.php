@@ -7,9 +7,19 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://kit.fontawesome.com/63ff890171.js" crossorigin="anonymous"></script>
+        <style>
+            .cloak {
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+            }
+            .full {
+                flex: 1;
+            }
+        </style> <!-- Helps standardize page sizes -->
     </head>
     <body id="top" class="bg-secondary" style="font-family: Tahoma">
-    <div class="container-fluid">
+    <div class="container-fluid cloak">
         <?php
         //get all bookmarks for a movie or tv show
         include './config.php';
@@ -25,7 +35,7 @@
         </div>
         ";
 
-        echo '<div class="row justify-content-center align-items-center" style="min-height: 75vh"'; // Start of the "row" for bookmarks.
+        echo '<div class="row justify-content-center align-items-center full"'; // Start of the "row" for bookmarks.
         $findUsers = $movies -> prepare("SELECT bookmark.watchStatus, bookmark.numberRating, bookmark.dateCreated, bookmark.description, account.username, media.name FROM media
         JOIN ABOUT ON media.mediaID = ABOUT.mediaID
         JOIN bookmark ON ABOUT.ratingID = bookmark.ratingID

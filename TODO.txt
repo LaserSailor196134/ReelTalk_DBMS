@@ -1,2 +1,5 @@
+- Separate film search from film display (movies.php for search, filmshow.php for display)
+-> Do the same thing as above for cast/crew.
+- Include TV shows in our API? (We genuinely might not have time for this)
 - Host the site?
 - Move sensitive data including API keys and database account data to environment variables in separate file which should be ignored by .gitignore
