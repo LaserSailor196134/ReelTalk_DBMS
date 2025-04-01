@@ -1,3 +1,5 @@
 - Prevent people who are not logged in from adding bookmarks
 - Turn logo text into button to make hit box larger
 - Host the site?
+- Make edit button for reviews
+- Recently Viewed Movies list on movies tab
