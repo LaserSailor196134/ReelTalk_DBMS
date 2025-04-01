@@ -3,6 +3,14 @@
 -->
 <!DOCTYPE html>
 <html lang="en">
+    <?php
+    include 'accounts/checkloggedin.php';
+    include 'headfoot.php';
+    if(!isLoggedIn()) {
+        header("Location: ./accounts/login.php");
+        die();
+    }
+    ?>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,7 +22,6 @@
     <body id="top" class="bg-secondary" style="font-family: Tahoma;">
     <div class="container-fluid">
         <?php
-        include 'headfoot.php';
         makeHeader();
         $movieID = $_POST['movie_id'];
         echo("<input type='hidden' name='movie_id' value='$movieID'>");

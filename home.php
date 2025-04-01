@@ -12,14 +12,24 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://kit.fontawesome.com/63ff890171.js" crossorigin="anonymous"></script>
+        <style>
+            .cloak {
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+            }
+            .full {
+                flex: 1;
+            }
+        </style> <!-- Helps standardize page sizes -->
     </head>
     <body class="bg-secondary" style="font-family: Tahoma"> <!-- Can change the font if we need to -->
-    <div id="top" class="container-fluid">
+    <div id="top" class="container-fluid cloak">
         <?php
         include 'headfoot.php';
         makeHeader();
         ?>
-        <div class="container-fluid" style="min-height: 75vh">
+        <div class="container-fluid full">
             <div class="row justify-content-center py-4">
                 <div class="bg-dark rounded text-center col-6 m-4 py-3">
                     <h1 class="text-light fs-1 pt-3">Welcome to ReelTalk!<br></h1>

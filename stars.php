@@ -16,7 +16,7 @@
         <?php
         include 'headfoot.php';
         
-        $api_key = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlN2RlMmE4YWYxYmRmMzdiY2NhNDI2Y2ZjNTQ4MWFkMyIsIm5iZiI6MTczODg3OTc3Ni41MzksInN1YiI6IjY3YTUzMzIwNTA4OGI5NDU5NzJmZTBhNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.PhOMmKjQYwxCiCfCrD0pFIhNpwC3nB5S1tIxRy3qkS4"; // Replace with your actual TMDB API key
+        $api_key = "API KEY GOES HERE"; // Replace with your actual TMDB API key
 
         //Link with db.
         $conn = new mysqli("localhost", "root", "", "moviedb"); //These should prob be variables for server, username, password and db respectively but whatevs.
