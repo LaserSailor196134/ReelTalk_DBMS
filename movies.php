@@ -198,48 +198,6 @@
                                 <a href='' class='btn btn-light p-1 my-2'>Add Bookmark</a> 
                                 <a href='' class='btn btn-light p-1 my-2 ms-2'>See Bookmarks</a>
                             </div>
-                            <!-- Cast/Crew -->
-                            <div class='col-5 scrollable_table'>
-                                <table class='table table-striped table-warning'>
-                                    <thead class=''>
-                                        <tr>
-                                            <th>Crew Member</th>
-                                            <th>Role</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <!-- These could be links to Star pages in the actual implementation(?) -->
-                                            <td>Sean Dingle</td>
-                                            <td>Director</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tom Dingle</td>
-                                            <td>Assistant Director</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Baddie McAnderson</td>
-                                            <td>Actor/Producer</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jimmy Provalone</td>
-                                            <td>Actor</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sarah Provalone</td>
-                                            <td>Actor</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Echo Rodriguez</td>
-                                            <td>Actor</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Albus Dumbledore.</td>
-                                            <td>Professor</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
                         </div>";
             } else {
                 echo "<p>No movie details found for ID: {$movie_id}</p>";
